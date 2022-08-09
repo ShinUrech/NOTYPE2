@@ -1,33 +1,39 @@
 {
-  "expo": {
-    "name": "Notype-App",
-    "slug": "Notype-App",
+    "expo": {
+    "name": "NOTYPE App",
+    "slug": "NoTypeApp",
     "version": "1.0.0",
+    "privacy": "public",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "owner": "notype",
+    "icon": "./App/assets/icon.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./App/assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "updates": {
+   "updates": {
       "fallbackToCacheTimeout": 0
     },
     "assetBundlePatterns": [
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": false,
+      "bundleIdentifier": "com.notype.notypeapp",
+      "buildNumber": "1.0.0"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./App/assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.notype.notypeapp",
+      "versionCode": 1
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./App/assets/favicon.png"
     }
+    
   }
 }
