@@ -117,7 +117,11 @@ const TicketCard = props => {
                         <Text style={[globalStyles.headerText]}>{ticketType}</Text>
                         <Ionicons onPress={() => toggleModal()} name={'close-outline'} size={40} color={globalStyles.iconColor.iconColor} style={{alignSelf: 'flex-end'}} />
                     </View>  
-                    <ImageBackground source={{uri: ticketImage}} style={[globalStyles.eventImage, globalStyles.elevateHeader, {width: '90%', height: 200}]}/>
+
+                    <View style={{width: '90%', height: 200, borderWidth:1}}>
+                        <ImageBackground source={{uri: ticketImage}} style={[globalStyles.eventImage, globalStyles.elevateHeader,globalStyles.borderColor, {height:199}]}/>
+                    </View>
+                    
                     <Text style={[globalStyles.paragraphText, {paddingHorizontal: '5%', paddingVertical: 20}]}>{description}</Text>
                     <TouchableOpacity
                         onPress={() => addItem()}
