@@ -62,7 +62,7 @@ export default function ProfileScreen() {
         style={[globalStyles.eventButton, globalStyles.elevate, {width: '95%', marginBottom: 15}]}
         onPress={() => navigation.navigate('OrderHistory')}
       >
-        <Text style={[globalStyles.buttonText, {fontSize: 25}]}>Order History</Text>
+        <Text style={[globalStyles.buttonText, {fontSize: 25}]}>Payments History</Text>
         <Ionicons name={'chevron-forward-outline'} size={25} color={globalStyles.iconColor.iconColor}/>
       </TouchableOpacity>
 

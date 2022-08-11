@@ -21,10 +21,10 @@ const EventCard = props => {
 
   return (
     <View style={[globalStyles.backgroundColor, globalStyles.cardContainer]}>
-      <View style={[globalStyles.borderColor,{borderWidth: 1, paddingLeft:5}]}>
+      <View style={[globalStyles.borderColor, {borderWidth: 1,paddingLeft:5}]}>
         <Text style={globalStyles.bigTitleText}>{title}</Text>
       </View>
-      <View style={{borderBottomWidth: 1,borderLeftWidth: 1, borderRightWidth:1, borderColor: 'white'}}>
+      <View style={[globalStyles.borderColor, {borderBottomWidth: 1,borderLeftWidth: 1, borderRightWidth:1, }]}>
         
       <TouchableOpacity
           onPress={()=> navigation.navigate('EventDetails', {
@@ -33,7 +33,7 @@ const EventCard = props => {
           activeOpacity={0.8}
         >
           <ImageBackground source={{uri: image}} style={[globalStyles.eventImage, globalStyles.elevate, {justifyContent: 'flex-end'}]}>
-            <View style={[globalStyles.infoView, globalStyles.elevate]}>
+            <View style={[globalStyles.infoView, globalStyles.borderColor, {borderWidth:1}]}>
               <View>
                 <View style={globalStyles.iconTextView}>
                 <Ionicons name="time-outline" size={28} color={globalStyles.iconColor.iconColor} style={{marginRight: 5}}/>
@@ -49,12 +49,12 @@ const EventCard = props => {
         </TouchableOpacity>
       </View>
        
-        <View style={[globalStyles.elevate, {marginTop: 15}]}>
+        <View style={[globalStyles.elevate,{marginTop: 15}]}>
           <TouchableOpacity
             onPress={()=> navigation.navigate('EventDetails', {
               title: title, time: time, place: place, description: description, image: image, id: id,
             })}
-            style={globalStyles.eventButton}
+            style={[globalStyles.eventButton, globalStyles.backgroundColor, globalStyles.borderColor, {borderWidth:1}]}
           >
             <Text style={globalStyles.buttonText}>Learn More</Text>
             <Ionicons name='chevron-forward-outline' size={32} color={globalStyles.iconColor.iconColor} style={{alignSelf: 'flex-end'}}/>
