@@ -18,8 +18,8 @@ export default function AccountSettingsScreen(){
             navigation.navigate('ChangeEmail')
           }}
       >
-        <Text style={[globalStyles.buttonText, {color: 'white', fontSize: 25}]}>Change Email</Text>
-        <Ionicons name={'chevron-forward-outline'} size={25} color={'white'}/>
+        <Text style={[globalStyles.buttonText, { fontSize: 25}]}>Change Email</Text>
+        <Ionicons name={'chevron-forward-outline'} size={25} color={globalStyles.iconColor.color}/>
       </TouchableOpacity>
 
       <TouchableOpacity
@@ -28,8 +28,8 @@ export default function AccountSettingsScreen(){
          navigation.navigate('ChangePassword')
         }}
       >
-        <Text style={[globalStyles.buttonText, {color: 'white', fontSize: 25}]}>Change Password</Text>
-        <Ionicons name={'chevron-forward-outline'} size={25} color={'white'}/>
+        <Text style={[globalStyles.buttonText, { fontSize: 25}]}>Change Password</Text>
+        <Ionicons name={'chevron-forward-outline'} size={25} color={globalStyles.iconColor.color}/>
       </TouchableOpacity>
 
       <TouchableOpacity 
@@ -37,8 +37,8 @@ export default function AccountSettingsScreen(){
         onPress={() => {
          navigation.navigate('ChangePhoneNumber')
         }}>
-          <Text style={[globalStyles.buttonText, {color:'white', fontSize: 25}]}>Change Phone Number</Text>
-          <Ionicons  name={'chevron-forward-outline'} size={25} color={'white'}/> 
+          <Text style={[globalStyles.buttonText, {fontSize: 25}]}>Change Phone Number</Text>
+          <Ionicons  name={'chevron-forward-outline'} size={25} color={globalStyles.iconColor.color}/> 
       </TouchableOpacity>
 
       <TouchableOpacity
@@ -53,7 +53,7 @@ export default function AccountSettingsScreen(){
                 }])
           }}
       >
-        <Text style={[globalStyles.buttonText, {color: 'white', fontSize: 25}]}>Delete Account</Text>
+        <Text style={[globalStyles.buttonText, { fontSize: 25}]}>Delete Account</Text>
       </TouchableOpacity>
     </View>
   );
