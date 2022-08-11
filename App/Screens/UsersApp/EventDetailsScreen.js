@@ -86,19 +86,19 @@ function EventDetailsScreen ({navigation}){
                 contentContainerStyle={[globalStyles.mainBackgroundView, globalStyles.backgroundColor]} 
                 ref={compRef}
             >
-               <TouchableOpacity style={{borderColor: 'white', borderWidth: 1 ,width: '95%', justifyContent:'center', alignSelf:'center'}} onPress={() => {
+               <TouchableOpacity style={[globalStyles.backgroundColor, globalStyles.borderColor, { borderWidth: 1 ,width: '95%', justifyContent:'center', alignSelf:'center'}]} onPress={() => {
                    setPicGalleryOpen(true)
                    }}>
                     <ImageBackground style={[globalStyles.eventImage, globalStyles.elevate, {width: '100%'}]} source={{uri: route.params.image}}>
-                        <View style={[globalStyles.adjustableWidthInfoView, globalStyles.elevate, {borderWidth:1, borderColor: 'white'}]}>
-                            <Text style={[globalStyles.bigTitleText, {color: 'white', paddingLeft: 5, alignSelf: 'flex-start'}]}>{route.params.title}</Text>
+                        <View style={[globalStyles.adjustableWidthInfoView, globalStyles.elevate, globalStyles.borderColor, {borderWidth:1}]}>
+                            <Text style={[globalStyles.bigTitleText, {paddingLeft: 5, alignSelf: 'flex-start'}]}>{route.params.title}</Text>
                         </View>
                     </ImageBackground>
                </TouchableOpacity>
 
                 <ImageGallery close={() => setPicGalleryOpen(false)} isOpen={picGalleryOpen} images={eventPictures}/>
 
-                <View style={[{width: '95%', borderWidth: 1, borderColor: 'white', borderTopWidth:0, paddingLeft: 10, paddingBottom:10, paddingRight: 5}, globalStyles.backgroundColor]}>
+                <View style={[globalStyles.borderColor, {width: '95%', borderWidth: 1, borderTopWidth:0, paddingLeft: 10, paddingBottom:10, paddingRight: 5}, globalStyles.backgroundColor]}>
                     <View style={globalStyles.iconTextView}>
                         <Ionicons name="time-outline" size={28} color={globalStyles.iconColor.iconColor} style={{marginRight: 5}} />
                         <Text style={globalStyles.titleText}>{route.params.time}</Text>
@@ -111,7 +111,7 @@ function EventDetailsScreen ({navigation}){
                     <Text style={[globalStyles.paragraphText, {fontSize: 20}]}>{route.params.description}</Text>
                 </View>
                 <TouchableOpacity style={[globalStyles.eventButton, globalStyles.elevate, {height: 60, width: '95%', alignItems: 'center', justifyContent:'center', marginVertical: 20}]} >
-                    <Text style={[globalStyles.bigTitleText, {color: 'white', paddingVertical: 0}]} onPress={() => compRef.current.scrollToEnd({animate: true})}>Available Tickets</Text>
+                    <Text style={[globalStyles.bigTitleText, { paddingVertical: 0}]} onPress={() => compRef.current.scrollToEnd({animate: true})}>Available Tickets</Text>
                 </TouchableOpacity>
                 
 
@@ -121,7 +121,7 @@ function EventDetailsScreen ({navigation}){
                     parallelItems={5}
                     data={tickets}
                     renderItem={({item}) => (
-                        <View style={{borderWidth:1, borderColor: 'white', marginLeft: 3, marginRight: 3}}>
+                        <View style={[globalStyles.borderColor, {borderWidth:1, marginLeft: 3, marginRight: 3}]}>
                             <TicketCard 
                             ticketType={item.title}
                             ticketImage={item.image}
