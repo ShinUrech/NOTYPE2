@@ -60,10 +60,9 @@ export default function ClaimedTickets() {
               initialDelay={100}
               durationPerItem={500}
               parallelItems={5}
-              style={{
-                backgroundColor: "black",
+              style={[globalStyles.backgroundColor, {
                 paddingVertical: 20,
-              }}
+              }]}
               data={tickets}
               renderItem={({item}) => (
                 <TicketQRCard
