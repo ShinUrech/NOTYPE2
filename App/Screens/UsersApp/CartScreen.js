@@ -86,7 +86,7 @@ export default function CartScreen() {
     if (!ItemData) {
         return(
             <View style={[globalStyles.mainBackgroundView, globalStyles.backgroundColor, {flex: 1}]}>
-                <ActivityIndicator size='large' color='white'/>
+                <ActivityIndicator size='large' color={globalStyles.iconColor.iconColor}/>
             </View>
         );
     } else {
@@ -132,12 +132,12 @@ export default function CartScreen() {
                                 <TouchableOpacity onPressOut={initializeCheckout} disabled={loading || total == 0} style={{paddingBottom: 30}}>
                                     {loading? 
                                         <View style={[globalStyles.eventButton, {justifyContent: 'center', width: '95%', alignSelf: 'center'}]}>
-                                            <ActivityIndicator size='large' color='white'/> 
+                                            <ActivityIndicator size='large' color={globalStyles.iconColor.iconColor}/> 
                                         </View>
                                     :
                                         <View style={[globalStyles.eventButton,globalStyles.elevate, {width: '95%', alignSelf: 'center'}]}>
-                                            <Text style={[globalStyles.titleText, {color: 'white', paddingVertical: 0}]}>To Checkout</Text>
-                                            <Ionicons name={"chevron-forward-outline"} size={30} color={'white'}/>
+                                            <Text style={[globalStyles.titleText, { paddingVertical: 0}]}>To Checkout</Text>
+                                            <Ionicons name={"chevron-forward-outline"} size={30} color={globalStyles.iconColor.iconColor}/>
                                         </View>
                                     }  
                                 </TouchableOpacity> 

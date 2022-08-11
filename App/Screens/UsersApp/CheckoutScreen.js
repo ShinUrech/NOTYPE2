@@ -125,7 +125,7 @@ export default function CheckoutScreen() {
                 onPress={openPaymentSheet}
             >
                 <View style={[globalStyles.eventButton, globalStyles.elevate, {height: 80, width: '90%', alignSelf: 'center'}]}>
-                        <Text style={[globalStyles.headerText, {color: 'white'}]}>Start a payment</Text>
+                        <Text style={[globalStyles.headerText]}>Start a payment</Text>
                         <Ionicons name={"chevron-forward-outline"} size={30} color={'white'}/>
                 </View>
             </TouchableOpacity>
