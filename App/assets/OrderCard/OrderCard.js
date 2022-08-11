@@ -17,15 +17,15 @@ const OrderCard = props => {
     return(
         <View style={[globalStyles.cardContainer, globalStyles.elevate, globalStyles.backgroundColor, {borderWidth:1 , borderColor:'white', padding: 10}]}>
             <View style={[globalStyles.leftRightView, {paddingBottom: 10}]}>
-                <Text style={[globalStyles.paragraphText, {color: 'white'}]} >Payment:</Text>
-                <Text style={[globalStyles.paragraphText, {color: 'white'}]} selectable>{paymentNumber}</Text>
+                <Text style={[globalStyles.paragraphText]} >Payment:</Text>
+                <Text style={[globalStyles.paragraphText]} selectable>{paymentNumber}</Text>
             </View>
             <View style={[globalStyles.leftRightView, {paddingBottom: 10}]}>
-              <Text style={[globalStyles.paragraphText, {color: 'white'}]}>Amount:</Text>
-              <Text style={[globalStyles.paragraphText, {color: 'white'}]}>{amount} CHF</Text>    
+              <Text style={[globalStyles.paragraphText]}>Amount:</Text>
+              <Text style={[globalStyles.paragraphText]}>{amount} CHF</Text>    
             </View>
             
-            <Text style={[globalStyles.paragraphText, {color: 'white', alignSelf: 'flex-end'}]}>{dateWords}</Text>
+            <Text style={[globalStyles.paragraphText, {alignSelf: 'flex-end'}]}>{dateWords}</Text>
         </View>
     )
 };

@@ -32,11 +32,10 @@ export default function OrderHistoryScreen(){
         return(
             <View style={{flex: 1}}>
                 <FlatList
-                    style={{
+                    style={[globalStyles.backgroundColor, {
                         flex: 1,
-                        backgroundColor: "black",
                         paddingVertical: 20,
-                    }}
+                    }]}
                     data={orders}
                     renderItem={({item}) => (
                         <OrderCard

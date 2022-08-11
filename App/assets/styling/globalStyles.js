@@ -13,7 +13,7 @@ const paragraphTextDarK = 'white'
 const backgroundColorLight = 'white'
 const backgroundColorDark = 'black'
 
-const darkmode = false;
+const darkmode = true;
 
 export const globalStyles = StyleSheet.create({
 
