@@ -1,4 +1,9 @@
 import { StyleSheet, Platform, StatusBar } from "react-native";
+import { useContext } from "react";
+import { ColorThemeContext } from "../../Navigation/ColorThemeProvider";
+import { color } from "react-native-elements/dist/helpers";
+
+
 
 const TitleTextColorLight = '#292929' 
 const TitleTextColorDark = 'white' 
@@ -9,55 +14,60 @@ const paragraphTextDarK = 'white'
 const backgroundColorLight = 'white'
 const backgroundColorDark = 'black'
 
+function theme() {
+    const {isDarkMode, setIsDarkMode} = useContext(ColorThemeContext)
+    return(isDarkMode)
+}
+
 export const globalStyles = StyleSheet.create({
 
     backgroundColor2: {
-        backgroundColor: backgroundColorLight
+        backgroundColor: (theme() ? backgroundColorLight : backgroundColorDark)
     },
 
     backgroundColor: {
-        backgroundColor: backgroundColorDark
+        backgroundColor: (theme() ? backgroundColorDark : backgroundColorLight)
     },
 
     borderColor:{
-        borderColor: backgroundColorLight
+        borderColor: (theme() ? backgroundColorLight : backgroundColorDark)
     },
 
     iconColor:{
-        iconColor: backgroundColorLight
+        iconColor: (theme() ? backgroundColorLight : backgroundColorDark)
     },
 
     //Texts
     bigTitleText:{
         fontFamily: 'RedHat-Regular',
         fontSize: 30,
-        color: TitleTextColorDark,
+        color: (theme() ? TitleTextColorDark : TitleTextColorLight),
         flexWrap: 'wrap',
         paddingVertical: 5
     },
     titleText:{
         fontFamily: 'RedHat-Regular',
         fontSize: 26,
-        color: TitleTextColorDark,
+        color: (theme() ? TitleTextColorDark : TitleTextColorLight),
         flexWrap: 'wrap',
         paddingVertical: 5,
     },
     paragraphText:{
         fontFamily: 'RedHat-Regular',
         fontSize: 18,
-        color: paragraphTextDarK,
+        color: (theme() ? paragraphTextDarK: paragraphTextLight),
         flexWrap: 'wrap',
     },
     headerText:{
         fontFamily: 'RedHat-SemiBold',
         fontSize: 32,
-        color: TitleTextColorDark,
+        color: (theme() ? TitleTextColorDark: TitleTextColorLight),
         flexWrap: 'wrap',
         paddingHorizontal: '3%',
     },
     buttonText:{
         fontFamily: 'RedHat-Regular',
-        color: TitleTextColorDark,
+        color: (theme() ?TitleTextColorDark:TitleTextColorLight),
         flexWrap: 'wrap',
         fontSize: 22,
     },
@@ -70,12 +80,12 @@ export const globalStyles = StyleSheet.create({
 
     //Views
     mainBackgroundView:{
-        backgroundColor: backgroundColorLight,
+        backgroundColor: (theme() ? backgroundColorLight : backgroundColorDark),
         justifyContent: 'center',
         alignItems: 'center',
     },
     cardContainer:{
-        backgroundColor: backgroundColorDark,
+        backgroundColor: (theme() ? backgroundColorDark : backgroundColorLight),
         width: '95%',
         alignSelf: 'center',
         marginBottom: 20,
@@ -97,12 +107,12 @@ export const globalStyles = StyleSheet.create({
     infoView:{
         height: 70,
         width: 200,
-        backgroundColor: backgroundColorDark,
+        backgroundColor: (theme()? backgroundColorDark:backgroundColorLight),
         margin: 15,
         justifyContent:'space-around',
     },
     adjustableWidthInfoView:{
-        backgroundColor: backgroundColorDark,
+        backgroundColor: (theme()? backgroundColorDark: backgroundColorLight),
         margin: 15,
         height: 50,
         top: -30,
@@ -141,7 +151,7 @@ export const globalStyles = StyleSheet.create({
     //Buttons
     eventButton:{
         height: 53,
-        backgroundColor: backgroundColorDark,
+        backgroundColor: (theme() ? backgroundColorDark : backgroundColorLight),
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
