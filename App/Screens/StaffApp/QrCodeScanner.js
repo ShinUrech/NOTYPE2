@@ -24,11 +24,10 @@ export default function QrCodeScanner() {
   const handleBarCodeScanned = async ({ data }) => {
 
     setScanned(true);
-
     try{
+
       const ref1 = doc(database, 'ticketsBought', data) 
-      
-      updateDoc(ref1, { claimed: true})
+      await updateDoc(ref1, { claimed: true})
       const ref2 = doc(database, 'Users', auth.currentUser.uid)
       const document =  (await getDoc(ref2)).data();
       navigation.navigate('DisplayTicket', {name: document.name, surname: document.surname, birthdate: document.birthdate, phoneNumber: document.phoneNumber, claimed: document.claimed})

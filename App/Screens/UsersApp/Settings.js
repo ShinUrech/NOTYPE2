@@ -22,10 +22,7 @@ export default function Settings(){
                 <Ionicons name={'chevron-forward-outline'} size={25} color={globalStyles.iconColor.iconColor}/>
             </TouchableOpacity>
             <Switch 
-            onChange={() => {
-                switchColorTheme()
-                console.log(isDarkMode)
-            }}
+            onChange={switchColorTheme}
             value={isDarkMode}/>
         </View>
     )

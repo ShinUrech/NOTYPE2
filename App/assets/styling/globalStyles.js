@@ -1,6 +1,6 @@
 import { StyleSheet, Platform, StatusBar } from "react-native";
-import { useContext } from "react";
-import { color } from "react-native-elements/dist/helpers";
+import { useCallback, useContext} from "react";
+import { ColorThemeContext } from "../../Navigation/ColorThemeProvider";
 
 
 
@@ -13,7 +13,7 @@ const paragraphTextDarK = 'white'
 const backgroundColorLight = 'white'
 const backgroundColorDark = 'black'
 
-const darkmode = false;
+const darkmode = true;
 
 export const globalStyles = StyleSheet.create({
 
@@ -63,7 +63,7 @@ export const globalStyles = StyleSheet.create({
     },
     buttonText:{
         fontFamily: 'RedHat-Regular',
-        color: (darkmode ?TitleTextColorDark:TitleTextColorLight),
+        color: (darkmode ? TitleTextColorDark:TitleTextColorLight),
         flexWrap: 'wrap',
         fontSize: 22,
     },
