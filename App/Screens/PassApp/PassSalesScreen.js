@@ -1,7 +1,7 @@
 import {View, TouchableOpacity, Text} from 'react-native'
 import { globalStyles } from '../../assets/styling/globalStyles'
 
-export function PassSalesScreen(navigation) {
+export function PassSalesScreen() {
     return(
         <View style={[globalStyles.mainBackgroundView]}>
             <TouchableOpacity style={[globalStyles.eventButton]}>

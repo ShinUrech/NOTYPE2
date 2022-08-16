@@ -69,7 +69,7 @@ export default function CheckoutScreen() {
             await deleteDoc(doc(getFirestore(), 'customers', getAuth().currentUser.uid, 'checkout_sessions', getAuth().currentUser.uid));
 
             //Go back to the cart screen
-            navigation.goBack();
+            navigation.navigate('cart');
         } else {
             //Inform about success
             showMessage({

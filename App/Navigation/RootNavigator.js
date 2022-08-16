@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { View, ActivityIndicator } from 'react-native';
 import { AuthenticatedUserContext } from './AuthenticatedUserProvider';
 import AuthStack from './AuthStack';
-import MainStack from './MainStack';
+import { MainStack } from './MainStack';
 import { auth} from '../../firebase';
 
 export default function RootNavigator(){
