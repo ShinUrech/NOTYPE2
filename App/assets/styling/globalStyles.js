@@ -3,7 +3,6 @@ import { useCallback, useContext} from "react";
 import { ColorThemeContext } from "../../Navigation/ColorThemeProvider";
 
 
-
 const TitleTextColorLight = '#292929' 
 const TitleTextColorDark = 'white' 
 
@@ -13,57 +12,57 @@ const paragraphTextDarK = 'white'
 const backgroundColorLight = 'white'
 const backgroundColorDark = 'black'
 
-const darkmode = true;
+const isDarkTheme = false;
 
 export const globalStyles = StyleSheet.create({
 
     backgroundColor2: {
-        backgroundColor: (darkmode ? backgroundColorLight : backgroundColorDark)
+        backgroundColor: (isDarkTheme ? backgroundColorLight : backgroundColorDark)
     },
 
     backgroundColor: {
-        backgroundColor: (darkmode ? backgroundColorDark : backgroundColorLight)
+        backgroundColor: (isDarkTheme ? backgroundColorDark : backgroundColorLight)
     },
 
     borderColor:{
-        borderColor: (darkmode ? backgroundColorLight : backgroundColorDark)
+        borderColor: (isDarkTheme ? backgroundColorLight : backgroundColorDark)
     },
 
     iconColor:{
-        iconColor: (darkmode ? backgroundColorLight : backgroundColorDark)
+        iconColor: (isDarkTheme ? backgroundColorLight : backgroundColorDark)
     },
 
     //Texts
     bigTitleText:{
         fontFamily: 'RedHat-Regular',
         fontSize: 30,
-        color: (darkmode ? TitleTextColorDark : TitleTextColorLight),
+        color: (isDarkTheme ? TitleTextColorDark : TitleTextColorLight),
         flexWrap: 'wrap',
         paddingVertical: 5
     },
     titleText:{
         fontFamily: 'RedHat-Regular',
         fontSize: 26,
-        color: (darkmode ? TitleTextColorDark : TitleTextColorLight),
+        color: (isDarkTheme ? TitleTextColorDark : TitleTextColorLight),
         flexWrap: 'wrap',
         paddingVertical: 5,
     },
     paragraphText:{
         fontFamily: 'RedHat-Regular',
         fontSize: 18,
-        color: (darkmode ? paragraphTextDarK: paragraphTextLight),
+        color: (isDarkTheme ? paragraphTextDarK: paragraphTextLight),
         flexWrap: 'wrap',
     },
     headerText:{
         fontFamily: 'RedHat-SemiBold',
         fontSize: 32,
-        color: (darkmode ? TitleTextColorDark: TitleTextColorLight),
+        color: (isDarkTheme ? TitleTextColorDark: TitleTextColorLight),
         flexWrap: 'wrap',
         paddingHorizontal: '3%',
     },
     buttonText:{
         fontFamily: 'RedHat-Regular',
-        color: (darkmode ? TitleTextColorDark:TitleTextColorLight),
+        color: (isDarkTheme ? TitleTextColorDark:TitleTextColorLight),
         flexWrap: 'wrap',
         fontSize: 22,
     },
@@ -76,12 +75,12 @@ export const globalStyles = StyleSheet.create({
 
     //Views
     mainBackgroundView:{
-        backgroundColor: (darkmode ? backgroundColorLight : backgroundColorDark),
+        backgroundColor: (isDarkTheme ? backgroundColorLight : backgroundColorDark),
         justifyContent: 'center',
         alignItems: 'center',
     },
     cardContainer:{
-        backgroundColor: (darkmode ? backgroundColorDark : backgroundColorLight),
+        backgroundColor: (isDarkTheme ? backgroundColorDark : backgroundColorLight),
         width: '95%',
         alignSelf: 'center',
         marginBottom: 20,
@@ -103,12 +102,12 @@ export const globalStyles = StyleSheet.create({
     infoView:{
         height: 70,
         width: 200,
-        backgroundColor: (darkmode? backgroundColorDark:backgroundColorLight),
+        backgroundColor: (isDarkTheme? backgroundColorDark:backgroundColorLight),
         margin: 15,
         justifyContent:'space-around',
     },
     adjustableWidthInfoView:{
-        backgroundColor: (darkmode? backgroundColorDark: backgroundColorLight),
+        backgroundColor: (isDarkTheme? backgroundColorDark: backgroundColorLight),
         margin: 15,
         height: 50,
         top: -30,
@@ -147,13 +146,13 @@ export const globalStyles = StyleSheet.create({
     //Buttons
     eventButton:{
         height: 53,
-        backgroundColor: (darkmode ? backgroundColorDark : backgroundColorLight),
+        backgroundColor: (isDarkTheme ? backgroundColorDark : backgroundColorLight),
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
         padding: 10,
         borderWidth: 1,
-        borderColor: (darkmode ? backgroundColorLight : backgroundColorDark)
+        borderColor: (isDarkTheme ? backgroundColorLight : backgroundColorDark)
     },
     
 });

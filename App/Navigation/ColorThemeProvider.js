@@ -11,7 +11,7 @@ export const ColorThemeContextProvider = ({ children }) => {
             return true
         } else {
             return false
-        }
+        } 
     }
     const [isDarkMode, setIsDarkMode] = useState(colorThemeIsDark())
 

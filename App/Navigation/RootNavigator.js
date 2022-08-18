@@ -5,6 +5,7 @@ import { AuthenticatedUserContext } from './AuthenticatedUserProvider';
 import AuthStack from './AuthStack';
 import { MainStack } from './MainStack';
 import { auth} from '../../firebase';
+import EventStack from './EventStack';
 
 export default function RootNavigator(){
 
@@ -39,7 +40,7 @@ export default function RootNavigator(){
   
     return (
       <NavigationContainer>
-        {user ? <MainStack/>: <AuthStack/>}
+        {user ? <EventStack/>: <AuthStack/>}
       </NavigationContainer>
     );
 }

@@ -110,8 +110,8 @@ function EventDetailsScreen ({navigation}){
                 
                     <Text style={[globalStyles.paragraphText, {fontSize: 20}]}>{route.params.description}</Text>
                 </View>
-                <TouchableOpacity style={[globalStyles.eventButton, globalStyles.elevate, {height: 60, width: '95%', alignItems: 'center', justifyContent:'center', marginVertical: 20}]} >
-                    <Text style={[globalStyles.bigTitleText, { paddingVertical: 0}]} onPress={() => compRef.current.scrollToEnd({animate: true})}>Available Tickets</Text>
+                <TouchableOpacity style={[globalStyles.eventButton, globalStyles.elevate, {height: 60, width: '95%', alignItems: 'center', justifyContent:'center', marginVertical: 20}]} onPress={() => compRef.current.scrollToEnd({animate: true})}>
+                    <Text style={[globalStyles.bigTitleText, { paddingVertical: 0}]} >Available Tickets</Text>
                 </TouchableOpacity>
                 
 
@@ -123,13 +123,13 @@ function EventDetailsScreen ({navigation}){
                     renderItem={({item}) => (
                         <View style={[globalStyles.borderColor, {borderWidth:1, marginLeft: 3, marginRight: 3}]}>
                             <TicketCard 
-                            ticketType={item.title}
-                            ticketImage={item.image}
-                            price={item.price}
-                            description={item.description}
-                            fontFamily={route.params.fontFamily}
-                            ticket_id={item.id}
-                        />
+                                ticketType={item.title}
+                                ticketImage={item.image}
+                                price={item.price}
+                                description={item.description}
+                                fontFamily={route.params.fontFamily}
+                                ticket_id={item.id}
+                            />
                         </View>
                     )}
                     keyExtractor={item => item.id}
