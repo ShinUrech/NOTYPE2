@@ -1,13 +1,13 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
 import {View, Text, TouchableOpacity} from 'react-native'
-import {globalStyles} from '../../assets/styling/globalStyles'
 import InputField from '../../assets/InputField'
 import {changePhoneNumber} from '../../../firebase'
-import { buttonStyle } from './../../assets/EventCard/EventCard.style';
+import {ColorThemeContext} from '../../Navigation/ColorThemeProvider'
 
 export default function ChangePhoneNumber() { 
 
     const [newNumber, setNewNumber] = useState('');
+    const {globalStyles} = useContext(ColorThemeContext)
 
     return(
         <View style={[globalStyles.mainBackgroundView, globalStyles.backgroundColor, {flex: 1, justifyContent: 'center'}]}>
@@ -18,6 +18,7 @@ export default function ChangePhoneNumber() {
             marginBottom: 20,
             borderWidth:1
             }]}
+            globalStyles={globalStyles}
             placeholder='Enter your new phone number'
             autoCorrect={false}
             keyboardType='phone-pad'

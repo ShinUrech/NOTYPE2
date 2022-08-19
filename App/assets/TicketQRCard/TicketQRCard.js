@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import {View, Text, TouchableOpacity} from "react-native";
 import QRCode from "react-native-qrcode-svg";
 import Modal from "react-native-modal";
-import { globalStyles } from "../styling/globalStyles";
 import { Ionicons } from "@expo/vector-icons";
 import {doc, onSnapshot, getFirestore} from "firebase/firestore"
 
@@ -14,6 +13,7 @@ const TicketQRCard = props => {
       ticketNumber,
       time,
       place,
+      globalStyles
     } = props;
 
     const ticketRef = doc(getFirestore(), 'ticketsBought', ticketNumber)

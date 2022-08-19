@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useContext} from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ProfileScreen from '../Screens/UsersApp/ProfileScreen';
 import SupportScreen from '../Screens/UsersApp/SupportScreen';
@@ -9,16 +9,18 @@ import AccountSettingsScreen from '../Screens/UsersApp/AccountSettingsScreen';
 import ChangePhoneNumber from '../Screens/UsersApp/ChangePhoneNumber';
 import ClaimedTickets from '../Screens/UsersApp/ClaimedTickets';
 import OrderHistoryScreen from '../Screens/UsersApp/OrderHistoryScreen';
-import Settings from '../Screens/UsersApp/Settings';
-import {globalStyles} from '../assets/styling/globalStyles';
+import AppSettings from '../Screens/UsersApp/AppSettings';
 import {SafeAreaView} from 'react-native-safe-area-context'
 import { Ionicons } from '@expo/vector-icons';
 import {View, Text} from 'react-native'
 import {useNavigation} from '@react-navigation/native'
+import { ColorThemeContext } from './ColorThemeProvider';
 
 export default function ProfileScreenStack() {
+
     const Stack = createNativeStackNavigator();
     const navigation = useNavigation()
+    const {globalStyles} = useContext(ColorThemeContext)
     
     return(
         <Stack.Navigator screenOptions={({route}) =>({
@@ -73,7 +75,7 @@ export default function ProfileScreenStack() {
             <Stack.Screen name='ChangePhoneNumber' component={ChangePhoneNumber}/>
             <Stack.Screen name='ClaimedTickets' component={ClaimedTickets}/>
             <Stack.Screen name='OrderHistory' component={OrderHistoryScreen}/>
-            <Stack.Screen name='Settings' component={Settings}/>
+            <Stack.Screen name='AppSettings' component={AppSettings}/>
         </Stack.Navigator>
     )
 }

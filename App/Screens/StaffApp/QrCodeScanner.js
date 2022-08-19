@@ -5,12 +5,13 @@ import * as WebBrowser from 'expo-web-browser';
 import { useNavigation } from '@react-navigation/native';
 import {auth, database } from '../../../firebase'
 import { getDoc, doc, updateDoc} from 'firebase/firestore' 
-import {globalStyles} from '../../assets/styling/globalStyles'
+import { ColorThemeContext } from '../../Navigation/ColorThemeProvider';
 
 export default function QrCodeScanner() {
 
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
+  const {globalStyles} = useContext(ColorThemeContext)
 
   const navigation = useNavigation();
 

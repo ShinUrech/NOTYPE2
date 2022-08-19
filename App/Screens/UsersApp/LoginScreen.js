@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { KeyboardAvoidingView, Keyboard, Text, TouchableWithoutFeedback, View, TouchableOpacity} from "react-native";
 import {signInWithEmailAndPassword} from 'firebase/auth'
 import { auth } from "../../../firebase";
+import {ColorThemeContext} from '../../Navigation/ColorThemeProvider'
 import InputField from "../../assets/InputField";
-import { globalStyles } from "../../assets/styling/globalStyles";
 
 export default function LoginScreen({navigation}) {
 
@@ -12,6 +12,7 @@ export default function LoginScreen({navigation}) {
   const [passwordVisibility, setPasswordVisibility] = useState(true);
   const [rightIcon, setRightIcon] = useState('eye-off');
   const [error, setError] = useState(false);
+  const {globalStyles} = useContext(ColorThemeContext)
 
   const handlePasswordVisibility = () => {
     if (rightIcon === 'eye') {

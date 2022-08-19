@@ -1,15 +1,15 @@
-import * as React from 'react';
+import React, {useContext} from 'react';
 import { View, Text,Alert, TouchableOpacity} from 'react-native';
-import { globalStyles } from '../../assets/styling/globalStyles';
 import { Ionicons } from '@expo/vector-icons'; 
-import {useNavigation} from '@react-navigation/native'
+import {useNavigation} from '@react-navigation/native';
+import { ColorThemeContext } from '../../Navigation/ColorThemeProvider';
 
 
 export default function AccountSettingsScreen(){
 
   const navigation = useNavigation();
 
-  
+  const {globalStyles} = useContext(ColorThemeContext)
   return(
     <View style={[globalStyles.mainBackgroundView, globalStyles.backgroundColor, {flex: 1, justifyContent: 'flex-start', paddingVertical: 20}]}>
       <TouchableOpacity

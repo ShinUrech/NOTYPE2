@@ -1,11 +1,11 @@
-import * as React from 'react'
+import React, {useContext} from 'react'
 import { updatePassword } from 'firebase/auth'
 import {auth} from '../../../firebase'
-import {globalStyles} from '../../assets/styling/globalStyles'
 import InputField from '../../assets/InputField';
 import {useState} from 'react'
 import {View, TouchableOpacity, Text} from 'react-native'
 import ReAuthModal from '../../assets/ReAuthModal'
+import { ColorThemeContext } from '../../Navigation/ColorThemeProvider';
 
 export default function ChangePassword({navigation}){
 
@@ -13,6 +13,7 @@ export default function ChangePassword({navigation}){
     const [rightIcon, setRightIcon] = useState('eye');
     const [passwordVisibility, setPasswordVisibility] = useState(true);
     const [reauthNeeded, setReauthNeeded] = useState(false)
+    const {globalStyles} = useContext(ColorThemeContext)
 
     const handlePasswordVisibility = () => {
         if (rightIcon === 'eye') {

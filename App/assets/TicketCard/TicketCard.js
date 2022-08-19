@@ -12,12 +12,15 @@ import { ActivityIndicator } from "react-native";
 
 
 const TicketCard = props => {
+
     const {
       ticketType,
       ticketImage,
       price,
       description,
       ticket_id,
+      user,
+      globalStyles,
     } = props;
 
     const navigation = useNavigation();
@@ -30,9 +33,12 @@ const TicketCard = props => {
     }
 
     const collRef = collection(getFirestore(), 'cartItems');
-    const currUserId = getAuth().currentUser.uid;
+    
+    
 
-    const addItem = async () => {
+    if(user !== null){
+        const currUserId = getAuth().currentUser.uid;
+        const addItem = async () => {
 
         setLoading(true);
 
@@ -83,14 +89,16 @@ const TicketCard = props => {
         }
        
         navigation.navigate('Cart');
-    }
+    }}
 
     return(
         <View style={[globalStyles.cardContainer, globalStyles.backgroundColor, {
             width: useWindowDimensions().width-40,
             height: 370,
             marginHorizontal: 10,}]}>
+
             <Text style={globalStyles.bigTitleText}>{ticketType}</Text>
+            
             <TouchableOpacity
                 onPress={() => toggleModal()}
                 activeOpacity={0.8}
@@ -98,9 +106,11 @@ const TicketCard = props => {
                 <ImageBackground source={{uri: ticketImage}} style={[globalStyles.eventImage, globalStyles.elevateHeader, {width: '100%', height: 200}]}/>
 
             </TouchableOpacity>
+
             <View style={[globalStyles.iconTextView, globalStyles.backgroundColor]}>
                 <Text style={[globalStyles.titleText, {fontSize: 22}]}>{price} CHF</Text>
             </View>
+
             <TouchableOpacity
                 onPress={() => toggleModal()}
                 style={[globalStyles.eventButton, globalStyles.elevate]}
@@ -108,9 +118,11 @@ const TicketCard = props => {
                 <Text style={globalStyles.buttonText}>Details</Text>
                 <Ionicons name='chevron-forward-outline' size={32} color={globalStyles.iconColor.iconColor} style={{alignSelf: 'flex-end'}}/>
             </TouchableOpacity>
+
             <View style={[{paddingTop:10}, globalStyles.backgroundColor]}>
                <Text style={globalStyles.paragraphText}>{description}</Text> 
             </View>
+
             <Modal isVisible={modalVisible} onBackdropPress={() => toggleModal()}>
                 <View style={[globalStyles.mainBackgroundView, globalStyles.backgroundColor, globalStyles.borderColor, { borderWidth:1, width: '95%', alignSelf: 'center'}]}>
                     <View style={[globalStyles.leftRightView, {paddingVertical: 5}]}>
@@ -126,12 +138,12 @@ const TicketCard = props => {
                     <TouchableOpacity
                         onPress={() => addItem()}
                         style={[globalStyles.eventButton, globalStyles.backgroundColor, {borderWidth:0, justifyContent: 'center', alignItems: 'center', width: '100%'}]}
-                        disabled={loading}
+                        disabled={loading || (user === null)}
                     >
                         {loading? 
                             <ActivityIndicator size='large' color={globalStyles.iconColor.iconColor} /> 
                         :
-                            <View style={[globalStyles.eventButton, globalStyles.backgroundColor, {borderLeftWidth:0,borderRightWidth:0, borderTopWidth:1, borderBottomWidth:0, width: '100%'}]}>
+                            <View style={[globalStyles.eventButton, globalStyles.backgroundColor, {borderLeftWidth:0,borderRightWidth:0, borderTopWidth:1, borderBottomWidth:0, width: '100%', opacity: user ? 1 : 0.3}]}>
                                 <Text style={[globalStyles.buttonText, {fontSize: 22}]}>{price} CHF</Text>
                                 <Ionicons name={'cart-outline'} size={28} color={globalStyles.iconColor.iconColor} />  
                             </View>

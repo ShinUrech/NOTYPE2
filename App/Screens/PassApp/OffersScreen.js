@@ -1,7 +1,6 @@
 import { useNavigation } from '@react-navigation/native'
-import * as React from 'react'
+import React, {useContext} from 'react'
 import {View, Text, TouchableOpacity} from  'react-native'
-import { globalStyles } from '../../assets/styling/globalStyles'
 
 export function OffersScreen() {
     const navigation = useNavigation()

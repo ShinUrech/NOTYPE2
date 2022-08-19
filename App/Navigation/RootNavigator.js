@@ -2,14 +2,14 @@ import React, { useContext, useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { View, ActivityIndicator } from 'react-native';
 import { AuthenticatedUserContext } from './AuthenticatedUserProvider';
-import AuthStack from './AuthStack';
-import { MainStack } from './MainStack';
 import { auth} from '../../firebase';
 import EventStack from './EventStack';
+import { ColorThemeContext } from './ColorThemeProvider';
 
 export default function RootNavigator(){
 
     const {user, setUser} = useContext(AuthenticatedUserContext);
+    const {globalStyles} = useContext(ColorThemeContext)
 
     const [isLoading, setIsLoading] = useState(true);
  
@@ -40,7 +40,7 @@ export default function RootNavigator(){
   
     return (
       <NavigationContainer>
-        {user ? <EventStack/>: <AuthStack/>}
+        <EventStack/>
       </NavigationContainer>
     );
 }

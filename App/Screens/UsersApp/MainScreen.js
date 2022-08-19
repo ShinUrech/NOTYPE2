@@ -1,11 +1,14 @@
-import React, { useEffect, useState} from 'react';
-import { SafeAreaView, FlatList, View, ActivityIndicator } from 'react-native';
+import React, { useEffect, useState, useContext} from 'react';
+import { SafeAreaView, FlatList, View, ActivityIndicator, Switch } from 'react-native';
 import EventCard from '../../assets/EventCard/EventCard';
 import { collection, getFirestore, onSnapshot } from '@firebase/firestore';
 import { FadeInFlatList } from '@ja-ka/react-native-fade-in-flatlist';
-import { globalStyles } from '../../assets/styling/globalStyles';
+import { ColorThemeContext } from '../../Navigation/ColorThemeProvider';
 
 export default function MainScreen() {
+
+    const {globalStyles} = useContext(ColorThemeContext)
+
 
     //Database collection reference
     const collRef = collection(getFirestore(), 'events'); 
@@ -33,6 +36,7 @@ export default function MainScreen() {
     } else {
         return (
             <SafeAreaView style={[globalStyles.backgroundColor, {flex: 1}]}>
+                
                 <FadeInFlatList
                     initialDelay={100}
                     durationPerItem={500}
@@ -46,6 +50,7 @@ export default function MainScreen() {
                             time={item.time}
                             place={item.place}
                             id={item.id}
+                            globalStyles={globalStyles}
                         />
                     )}
                     keyExtractor={item => item.id}

@@ -1,13 +1,14 @@
 import { Ionicons } from '@expo/vector-icons';
 import * as React from 'react';
-import { useState, useEffect} from 'react';
+import { useState, useEffect, useContext} from 'react';
 import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { signOut} from '@firebase/auth';
 import { auth, database } from '../../../firebase';
 import {onSnapshot, doc} from '@firebase/firestore'
-import { globalStyles } from '../../assets/styling/globalStyles';
 import Modal from "react-native-modal";
 import { useNavigation } from '@react-navigation/native';
+import {AuthenticatedUserContext} from '../../Navigation/AuthenticatedUserProvider'
+import { ColorThemeContext } from '../../Navigation/ColorThemeProvider';
 
 import * as WebBrowser from 'expo-web-browser';
 
@@ -17,16 +18,21 @@ export default function ProfileScreen() {
   const [supportModalVisible, setSupportModalVisible] = useState(false);
   const [isStaff, setIsStaff] = useState(false);
   
+  const {user, setUser} = useContext(AuthenticatedUserContext)
+  const {globalStyles} = useContext(ColorThemeContext)
+  
   const navigation = useNavigation();
 
-  useEffect(() => {
+  if(user !== null) {
+    useEffect(() => {
+
+      const unsubscribe = onSnapshot(doc(database, "Users", user.uid), (doc) => {
+        setIsStaff(doc.data().isStaff)
+      })
+      return unsubscribe;
       
-    const unsubscribe = onSnapshot(doc(database, "Users", auth.currentUser.uid), (doc) => {
-      setIsStaff(doc.data().isStaff)
-    })
-    return unsubscribe;
-  
-}, [])
+    }, [])
+  }
 
   const toggleSupportModal = () => {
     setSupportModalVisible(!supportModalVisible);
@@ -39,45 +45,60 @@ export default function ProfileScreen() {
         console.log(e)
       }
   }
-
+  
   return (
     <ScrollView style={[globalStyles.backgroundColor, {flex: 1}]} contentContainerStyle={{alignItems: 'center', justifyContent: 'center'}}>
+      
+      {user ? 
       <View style={[globalStyles.leftRightView, globalStyles.cardContainer, globalStyles.backgroundColor]}>
         <View style={[globalStyles.mainBackgroundView,globalStyles.backgroundColor, {alignItems: 'flex-start', paddingLeft: 5}]}>
           <Text style={[globalStyles.headerText, {paddingHorizontal: 0, paddingTop: 10}]}>{auth.currentUser.displayName}</Text>
           <Text style={globalStyles.paragraphText}>Joined NOTYPE</Text>
           <Text style={globalStyles.paragraphText}>{auth.currentUser.metadata.creationTime}</Text>
         </View>
-      </View>
+      </View> : 
+      <View style={[globalStyles.leftRightView, globalStyles.cardContainer, globalStyles.backgroundColor]}>
+        <Text style={[globalStyles.headerText, {paddingHorizontal: 0, paddingTop: 10}]}>Join NOYTPE.</Text>
+      </View>}
 
-      <TouchableOpacity
+
+
+      {user ? <TouchableOpacity
         style={[globalStyles.eventButton, globalStyles.elevate, {width: '95%', marginBottom: 15}]}
-        onPress={() => navigation.navigate('Settings')}
+        onPress={() => navigation.navigate('AccountSettings')}
       >
         <Text style={[globalStyles.buttonText, {fontSize: 25}]}>Settings</Text>
         <Ionicons name={'chevron-forward-outline'} size={25} color={globalStyles.iconColor.iconColor}/>
-      </TouchableOpacity>
+      </TouchableOpacity> : null}
 
       <TouchableOpacity
+        style={[globalStyles.eventButton, globalStyles.elevate, {width: '95%', marginBottom: 15}]}
+        onPress={() => navigation.navigate('AppSettings')}
+      >
+        <Text style={[globalStyles.buttonText, {fontSize: 25}]}>App Settings</Text>
+        <Ionicons name={'chevron-forward-outline'} size={25} color={globalStyles.iconColor.iconColor}/>
+      </TouchableOpacity>
+      
+      {user ? <TouchableOpacity
         style={[globalStyles.eventButton, globalStyles.elevate, {width: '95%', marginBottom: 15}]}
         onPress={() => navigation.navigate('OrderHistory')}
       >
         <Text style={[globalStyles.buttonText, {fontSize: 25}]}>Payments History</Text>
         <Ionicons name={'chevron-forward-outline'} size={25} color={globalStyles.iconColor.iconColor}/>
-      </TouchableOpacity>
+      </TouchableOpacity>:null}
 
-      <TouchableOpacity style={[globalStyles.eventButton, globalStyles.elevate, {width: '95%', marginBottom: 15}]} onPress={() => navigation.navigate('ClaimedTickets')}>
+      {user ? <TouchableOpacity style={[globalStyles.eventButton, globalStyles.elevate, {width: '95%', marginBottom: 15}]} onPress={() => navigation.navigate('ClaimedTickets')}>
         <Text style={[globalStyles.buttonText, {fontSize: 25}]}>Ticket History</Text>
         <Ionicons name={'chevron-forward-outline'} size={25} color={globalStyles.iconColor.iconColor}/>
-      </TouchableOpacity>
+      </TouchableOpacity>:null}
 
-      <TouchableOpacity
+      {user ? <TouchableOpacity
         style={[globalStyles.eventButton, globalStyles.elevate, {width: '95%', marginBottom: 15}]}
         onPress={toggleSupportModal}
       >
         <Text style={[globalStyles.buttonText, {fontSize: 25}]}>Help</Text>
         <Ionicons name={'chevron-forward-outline'} size={25} color={globalStyles.iconColor.iconColor}/>
-      </TouchableOpacity>
+      </TouchableOpacity>:null}
 
       <TouchableOpacity
         style={[globalStyles.eventButton, globalStyles.elevate, {width: '95%', marginBottom: 15}]}
@@ -101,12 +122,18 @@ export default function ProfileScreen() {
         <Ionicons name={'chevron-forward-outline'} size={25} color={globalStyles.iconColor.iconColor}/>
       </TouchableOpacity> : null}
 
-      <TouchableOpacity 
+     {user ?  
+     <TouchableOpacity 
         style={[globalStyles.eventButton, globalStyles.elevate, {alignSelf: 'center', width:'35%', justifyContent: 'center', marginBottom: 50}]}
         onPress={handleSignout}
       >
         <Text style={[globalStyles.buttonText, {fontSize: 25, alignSelf: 'center'}]}>Logout</Text>
-      </TouchableOpacity>
+      </TouchableOpacity>: 
+      <TouchableOpacity
+        style={[globalStyles.eventButton, globalStyles.elevate, {alignSelf: 'center', width:'35%', justifyContent: 'center', marginBottom: 50}]}
+        onPress={() => navigation.navigate('SignInFLow')}>
+          <Text>LogIn</Text>
+      </TouchableOpacity>}
       
 
       <Modal isVisible={supportModalVisible} onBackdropPress={toggleSupportModal}>

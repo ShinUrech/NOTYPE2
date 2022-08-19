@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useContext} from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import MainTabs from './MainTabs';
 import EventDetailsScreen from '../Screens/UsersApp/EventDetailsScreen';
@@ -7,9 +7,9 @@ import FlashMessage from 'react-native-flash-message';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import {View, Text } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { globalStyles, StyleSheetDkMode } from '../assets/styling/globalStyles';
 import { useNavigation } from '@react-navigation/native';
 import AccountSettingsScreen from '../Screens/UsersApp/AccountSettingsScreen';
+import { ColorThemeContext } from './ColorThemeProvider';
 
 const Stack = createNativeStackNavigator();
 
@@ -18,6 +18,8 @@ const Stack = createNativeStackNavigator();
 const EventStack = () =>{
     
     const navigation = useNavigation();
+
+    const {globalStyles} = useContext(ColorThemeContext)
 
     return(
         <SafeAreaProvider>

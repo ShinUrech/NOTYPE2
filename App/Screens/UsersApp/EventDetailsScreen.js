@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState} from "react";
+import React, { useCallback, useContext, useEffect, useState} from "react";
 import {View, ScrollView, Text, TouchableOpacity, ImageBackground, useWindowDimensions} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import TicketCard from "./../../assets/TicketCard/TicketCard";
@@ -7,12 +7,14 @@ import { collection, getFirestore, onSnapshot, doc, query, where } from '@fireba
 import { globalStyles } from "../../assets/styling/globalStyles";
 import { ActivityIndicator } from "react-native";
 import { FadeInFlatList } from "@ja-ka/react-native-fade-in-flatlist";
-import Modal from 'react-native-modal';
 import {getStorage, ref, getDownloadURL, listAll, getBytes} from 'firebase/storage'
 import {ImageGallery} from '@georstat/react-native-image-gallery'
+import {AuthenticatedUserContext} from '../../Navigation/AuthenticatedUserProvider'
+import {ColorThemeContext} from '../../Navigation/ColorThemeProvider'
 
 function EventDetailsScreen ({navigation}){
 
+    const {globalStyles} = useContext(ColorThemeContext)
     const compRef = React.useRef(null)
 
     const route = useRoute();
@@ -52,6 +54,8 @@ function EventDetailsScreen ({navigation}){
     const [tickets, setTickets] = useState([]);
     const [picGalleryOpen, setPicGalleryOpen] = useState(false); 
     const [eventPictures, setEventPictures] = useState([{}])   
+
+    const {user, setUser} = useContext(AuthenticatedUserContext)
 
 
     const q1 = query(collRef1, where('event_id', '==', route.params.id));
@@ -129,6 +133,8 @@ function EventDetailsScreen ({navigation}){
                                 description={item.description}
                                 fontFamily={route.params.fontFamily}
                                 ticket_id={item.id}
+                                user={user}
+                                globalStyles={globalStyles}
                             />
                         </View>
                     )}
@@ -155,7 +161,7 @@ function EventDetailsScreen ({navigation}){
                 />
                 <View style={dots()}>
                     {tickets.map((ticket, index) =>(
-                        <View key={index} style={[dot(), {backgroundColor: (index === activeIndex)? "#292929" : 'white'}]}/>
+                        <View key={index} style={[dot(), {backgroundColor: (index === activeIndex)? "black" : 'white'}]}/>
                     ))}
                 </View>
             </ScrollView>

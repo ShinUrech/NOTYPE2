@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
-import { useState} from "react";
+import { useState, useContext} from "react";
 import {KeyboardAvoidingView, View, Keyboard, TouchableWithoutFeedback, Text, TouchableOpacity} from "react-native";
 import { Button } from "react-native-elements";
 import InputField from "../../assets/InputField";
-import { globalStyles } from "../../assets/styling/globalStyles";
 import { useNavigation } from "@react-navigation/native";
 import DateTimePicker from '@react-native-community/datetimepicker'
+import {ColorThemeContext} from '../../Navigation/ColorThemeProvider'
 
 export default function SignInScreen() {
   
@@ -18,6 +18,8 @@ export default function SignInScreen() {
   const [passwordVisibility, setPasswordVisibility] = useState(true);
 
   const [show,setShow] = useState(false)
+
+  const {globalStyles} = useContext(ColorThemeContext)
  
   const [rightIcon, setRightIcon] = useState('eye-off');
   
@@ -65,7 +67,7 @@ export default function SignInScreen() {
               setEmail(text);
               emailIsValid(text);
             }}
-            
+            globalStyles={globalStyles}
             containerStyle={[globalStyles.backgroundColor, globalStyles.borderColor, {borderBottomWidth:1 ,paddingBottom:5, marginBottom:10}]}
           />
 

@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 import PropTypes from "prop-types";
 import {View, Text, TouchableOpacity} from "react-native";
-import { globalStyles } from "../styling/globalStyles";
 import { Ionicons } from "@expo/vector-icons";
 
 const OrderCard = props => {
@@ -9,6 +8,7 @@ const OrderCard = props => {
       amount,
       date,
       paymentIntent,
+      globalStyles
     } = props;
 
     const paymentNumber = paymentIntent.substring(3, paymentIntent.length -1);

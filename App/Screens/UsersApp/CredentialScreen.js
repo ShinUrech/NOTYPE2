@@ -1,17 +1,18 @@
 import { SafeAreaView, View, TouchableWithoutFeedback, Text, Button, Keyboard, TouchableOpacity } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { auth, onSignUpHandler, createUserData, signInHandler } from "../../../firebase";
 import InputField from "../../assets/InputField";
 import {DropdownList} from "react-native-ultimate-modal-picker";
 import { sendEmailVerification } from "firebase/auth";
 import { countryList } from "../../../Lists";
-import { globalStyles } from "../../assets/styling/globalStyles";
 import DateTimePicker from '@react-native-community/datetimepicker'
+import {ColorThemeContext} from '.././../Navigation/ColorThemeProvider'
 
 export default function CredentialScreen({navigation, route}) {
 
 
     const {email, password} = route.params;
+    const {globalStyles} = useContext(ColorThemeContext)
 
     const [name, setName] = useState('')
     const [surname, setSurname] = useState('')

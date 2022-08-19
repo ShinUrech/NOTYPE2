@@ -1,9 +1,11 @@
-import * as React from 'react';
+import React, {useContext} from 'react';
 import { Text, View } from 'react-native';
 import { Button } from 'react-native';
-import{globalStyles} from '../../assets/styling/globalStyles'
+import {ColorThemeContext} from '../../Navigation/ColorThemeProvider'
 
 export default function DisplayTicket({route}){
+
+    const {globalStyles} = useContext(ColorThemeContext)
 
     const {name, surname, birthdate, phoneNumber, claimed} = route.params
     return(

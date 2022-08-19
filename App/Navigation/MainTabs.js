@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React,  {useState, useEffect, useContext} from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import MainScreen from '../Screens/UsersApp/MainScreen';
@@ -12,28 +12,29 @@ import { getAuth } from 'firebase/auth';
 import { globalStyles } from '../assets/styling/globalStyles';
 import * as WebBrowser from 'expo-web-browser';
 import Modal from 'react-native-modal'
-import {useState, useEffect} from 'react'
 import ProfileScreenStack from './ProfileScreenStack';
+import { AuthenticatedUserContext } from './AuthenticatedUserProvider';
+import { ColorThemeContext } from './ColorThemeProvider';
 
 export default function MainTabs(){
 
     const [cartNumber, setCartNumber] = useState(0);
     const [visible, setVisible] = useState(false);
+    const {user, setUser} = useContext(AuthenticatedUserContext)
+    const {globalStyles} = useContext(ColorThemeContext)
+
     const Tab = createBottomTabNavigator();
 
     const database = getFirestore();
     const auth = getAuth();
 
-    const toggleModal = () => {
-        setVisible(!visible);
-    }
     //Fetch cartItems number
-    useEffect(() => {
+    if(user !== null) {useEffect(() => {
         const subscriber = onSnapshot(doc(database, 'Users', auth.currentUser.uid), (snapshot) =>{
             setCartNumber(snapshot.data().cart);
         })
         return () => subscriber();
-    }, [])
+    }, [])}
 
     return(
         <SafeAreaProvider>

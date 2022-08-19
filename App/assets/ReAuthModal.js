@@ -4,7 +4,6 @@ import Modal from 'react-native-modal'
 import PropTypes from 'prop-types'
 import InputField from './InputField'
 import {reauthenticateWithCredential} from 'firebase/auth'
-import {globalStyles} from './styling/globalStyles'
 import {useState} from 'react'
 
 const ReAuthModal = props => {
@@ -12,6 +11,7 @@ const ReAuthModal = props => {
     const {
         isVisible,
         onBackdropPress,
+        globalStyles,
     } = props;
 
     const [passwordVisibility, setPasswordVisibility] = useState(false)

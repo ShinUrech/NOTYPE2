@@ -1,19 +1,21 @@
-import * as React from 'react';
+import React, {useContext} from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LoginScreen from '../Screens/UsersApp/LoginScreen';
 import SignInStack from './SignInStack';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { globalStyles } from '../assets/styling/globalStyles';
 import { View, Text } from 'react-native';
 import { StatusBar } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import {useNavigation} from '@react-navigation/native';
+import { ColorThemeContext } from './ColorThemeProvider';
 
 const Stack = createNativeStackNavigator();
 
 export default function AuthStack(){
 
     const navigation = useNavigation();
+
+    const {globalStyles} = useContext(ColorThemeContext)
 
     return(
         <Stack.Navigator screenOptions={({route}) => ({

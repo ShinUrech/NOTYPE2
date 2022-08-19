@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import {View, Text, FlatList} from 'react-native';
-import { globalStyles } from '../../assets/styling/globalStyles';
 import OrderCard from '../../assets/OrderCard/OrderCard';
 import { collection, getFirestore, query, where,  getDoc, doc, onSnapshot} from '@firebase/firestore';
 import { getAuth } from 'firebase/auth';
+import { ColorThemeContext } from '../../Navigation/ColorThemeProvider';
 
 
 export default function OrderHistoryScreen(){
 
     const [orders, setOrders] = useState([]);
+    const {globalStyles} = useContext(ColorThemeContext)
 
     useEffect(() => {
         const subscriber = onSnapshot(collection(getFirestore(), 'Users', getAuth().currentUser.uid, 'payments'), (snapshot) => {
@@ -42,6 +43,7 @@ export default function OrderHistoryScreen(){
                             amount={item.amount}
                             paymentIntent={item.paymentIntent}
                             date={item.date}
+                            globalStyles={globalStyles}
                         />
                     )}
                     ListFooterComponent={

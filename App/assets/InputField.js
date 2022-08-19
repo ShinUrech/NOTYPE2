@@ -1,16 +1,16 @@
 import React from 'react';
 import { View, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { globalStyles } from './styling/globalStyles';
 
 const InputField = ({
   leftIcon,
-  iconColor = globalStyles.iconColor.iconColor,
+  iconColor,
   rightIcon,
   inputStyle,
   containerStyle,
   handlePasswordVisibility,
-  placeholderTextColor = globalStyles.backgroundColor2.backgroundColor,
+  placeholderTextColor,
+  globalStyles,
   ...rest
 }) => {
   return (
@@ -24,7 +24,7 @@ const InputField = ({
       ) : null}
       <TextInput
         {...rest}
-        placeholderTextColor={placeholderTextColor}
+        placeholderTextColor={globalStyles.backgroundColor2.backgroundColor}
         style={[styles.input, inputStyle]}
         
       />
@@ -33,7 +33,7 @@ const InputField = ({
           <Ionicons
             name={rightIcon + '-outline'}
             size={25}
-            color={iconColor}
+            color={globalStyles.iconColor.iconColor}
           />
         </TouchableOpacity>
       ) : null}

@@ -1,7 +1,7 @@
 import RootNavigator from "./App/Navigation/RootNavigator";
 import { AuthenticatedUserProvider } from "./App/Navigation/AuthenticatedUserProvider";
 import { ColorThemeContextProvider } from "./App/Navigation/ColorThemeProvider";
-import React, {useEffect, useState, useCallback} from "react";
+import React, {useEffect, useState, useCallback, useContext} from "react";
 import {StripeProvider} from '@stripe/stripe-react-native';
 import NetInfo from '@react-native-community/netinfo';
 import { Text, View, ActivityIndicator } from 'react-native';
@@ -17,6 +17,7 @@ SplashScreen.preventAutoHideAsync()
 
     const [connection, setConnection] = useState(true);
     const [fontsLoaded, setFontsLoaded] = useState(false);
+    
 
     useEffect(()=>{
       const unsubscribe = NetInfo.addEventListener(state => {

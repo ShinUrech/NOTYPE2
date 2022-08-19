@@ -11,7 +11,6 @@ import { Ionicons } from "@expo/vector-icons";
 import {getFirestore, deleteDoc, doc, getDoc, updateDoc} from '@firebase/firestore';
 import { showMessage } from 'react-native-flash-message';
 import { getAuth } from "firebase/auth";
-import { globalStyles } from "../styling/globalStyles";
 
 const CartItemCard = props => {
     const {
@@ -22,6 +21,7 @@ const CartItemCard = props => {
         ticketImage,
         itemID,
         ticket_id,
+        globalStyles,
     } = props;
 
     const deleteItem = async () => {

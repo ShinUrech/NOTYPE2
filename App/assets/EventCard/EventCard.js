@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { Text, View, Dimensions, Image, ImageBackground, TouchableOpacity} from "react-native";
 import { Ionicons } from '@expo/vector-icons';
@@ -6,6 +6,7 @@ import { globalStyles } from "../styling/globalStyles";
 import { Button } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
 import { cardContainer } from './../TicketCard/TicketCard.style';
+import { ColorThemeContext } from "../../Navigation/ColorThemeProvider";
 
 const EventCard = props => {
   const {
@@ -15,6 +16,7 @@ const EventCard = props => {
     place,
     image,
     id,
+    globalStyles
   } = props;
 
   const navigation = useNavigation();

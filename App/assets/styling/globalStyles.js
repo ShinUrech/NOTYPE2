@@ -12,9 +12,8 @@ const paragraphTextDarK = 'white'
 const backgroundColorLight = 'white'
 const backgroundColorDark = 'black'
 
-const isDarkTheme = false;
 
-export const globalStyles = StyleSheet.create({
+export const styles = (isDarkTheme) => StyleSheet.create({
 
     backgroundColor2: {
         backgroundColor: (isDarkTheme ? backgroundColorLight : backgroundColorDark)

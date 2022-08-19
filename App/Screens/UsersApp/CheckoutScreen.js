@@ -1,6 +1,5 @@
-import React from 'react';
+import React, {useContext, useState } from 'react';
 import { StyleSheet, TouchableOpacity ,ScrollView, SafeAreaView, Text, View, FlatList} from 'react-native';
-import { useState } from 'react';
 import { collection, getFirestore,  query, where, deleteDoc, getDoc, doc, getDocs, updateDoc, addDoc } from '@firebase/firestore';
 import { getAuth } from '@firebase/auth';
 import { useEffect } from 'react';
@@ -8,8 +7,8 @@ import { useStripe } from '@stripe/stripe-react-native';
 import { useNavigation } from '@react-navigation/native';
 import { showMessage } from 'react-native-flash-message';
 import { Button } from 'react-native-elements';
-import { globalStyles } from '../../assets/styling/globalStyles';
 import { Ionicons } from '@expo/vector-icons';
+import { ColorThemeContext } from '../../Navigation/ColorThemeProvider';
 
 
 export default function CheckoutScreen() {
@@ -17,6 +16,7 @@ export default function CheckoutScreen() {
     const { initPaymentSheet, presentPaymentSheet } = useStripe();
     const [loading, setLoading] = useState(false);
     const navigation = useNavigation();
+    const {globalStyles} = useContext(ColorThemeContext)
   
     const fetchPaymentSheetParams = async () => {
 

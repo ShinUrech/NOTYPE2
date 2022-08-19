@@ -1,14 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, ActivityIndicator } from 'react-native';
 import TicketQRCard from '../../assets/TicketQRCard/TicketQRCard';
 import { collection, getFirestore, query, where,  getDoc, doc, onSnapshot, updateDoc} from '@firebase/firestore';
 import { getAuth } from '@firebase/auth';
 import { FadeInFlatList } from '@ja-ka/react-native-fade-in-flatlist';
-import { globalStyles } from '../../assets/styling/globalStyles';
+import { AuthenticatedUserContext} from '../../Navigation/AuthenticatedUserProvider';
+import { ColorThemeContext } from '../../Navigation/ColorThemeProvider';
 
 export default function TicketsScreen() {
 
-  const db = getFirestore();
+  const {user, setUser} = useContext(AuthenticatedUserContext)
+  const {globalStyles} = useContext(ColorThemeContext)
+
+  if(user!==null){const db = getFirestore();
   const collRef = collection(db, 'ticketsBought');
   const q = query(collRef, where('user_id', '==', getAuth().currentUser.uid));
   const [tickets, setTickets] = useState(null);
@@ -39,7 +43,7 @@ export default function TicketsScreen() {
     })
     return () => subscriber();
   }, [])
-
+  
   if (!tickets) {
     return (
       <View style={[globalStyles.backgroundColor, {flex:1, justifyContent: 'center', alignItems: 'center'}]}>
@@ -70,6 +74,7 @@ export default function TicketsScreen() {
                   ticketNumber={item.id}
                   time={item.time}
                   place={item.place}
+                  globalStyles={globalStyles}
                 />
               )}
               ListFooterComponent={
@@ -81,5 +86,11 @@ export default function TicketsScreen() {
           }
         </View>
     );
+  }} else {
+    return(
+      <View style={[globalStyles.backgroundColor,{flex:1, justifyContent: 'center', alignItems: 'center'}]}>
+        <Text style={globalStyles.bigTitleText}>Create your NOTYPE. to get your tickets!</Text>
+      </View>
+    )
   }
 }

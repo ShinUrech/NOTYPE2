@@ -1,4 +1,4 @@
-import React from 'react';
+import React , {useContext}from 'react';
 import { StyleSheet, TouchableOpacity ,ScrollView, SafeAreaView, Text, View, FlatList, ActivityIndicator } from 'react-native';
 import CartItemCard from '../../assets/CartItemCard/CartItemCard';
 import { Ionicons } from '@expo/vector-icons';
@@ -8,6 +8,8 @@ import { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { FadeInFlatList } from '@ja-ka/react-native-fade-in-flatlist';
 import { globalStyles } from '../../assets/styling/globalStyles';
+import { AuthenticatedUserContext } from '../../Navigation/AuthenticatedUserProvider';
+import { ColorThemeContext } from '../../Navigation/ColorThemeProvider';
 
 export default function CartScreen() {
 
@@ -15,14 +17,17 @@ export default function CartScreen() {
     const [loading, setLoading] = useState(false);
     const [total, setTotal] = useState(0);
     const [itemNumber, setItemNumber] = useState(0);
-
-    const collRef = collection(getFirestore(), 'cartItems');
-    const q = query(collRef, where('user_id', '==', getAuth().currentUser.uid));
+    
+    const {globalStyles} = useContext(ColorThemeContext)
+    const {user, setUser} = useContext(AuthenticatedUserContext)
+   
 
     const navigation = useNavigation();
 
     //Fetching and updating cart items
-    useEffect(() => {
+    if(user !== null){useEffect(() => {
+        const collRef = collection(getFirestore(), 'cartItems');
+        const q = query(collRef, where('user_id', '==', getAuth().currentUser.uid));
         const subscriber = onSnapshot(q, (snapshot) => {
             let cartItems = [];
             snapshot.docs.forEach((document) => {
@@ -111,6 +116,7 @@ export default function CartScreen() {
                                 itemID={item.id}
                                 ticket_id={item.ticket_id}
                                 place={item.place}
+                                globalStyles={globalStyles}
                             />
                         )}
                         keyExtractor={item => item.id}
@@ -147,5 +153,12 @@ export default function CartScreen() {
                 }
             </View>
         );
+    }
+    } else {
+        return (
+        
+        <View style={[{flex:1, justifyContent: 'center', alignItems: 'center'}, globalStyles.backgroundColor]}>
+            <Text style={[globalStyles.bigTitleText, {paddingHorizontal: '5%'}]}>Create your NOTYPE. to get your tickets!</Text>
+        </View>)
     }
 }

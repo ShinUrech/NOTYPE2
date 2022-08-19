@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext} from 'react';
 import { View, Text, ActivityIndicator } from 'react-native';
 import TicketQRCard from '../../assets/TicketQRCard/TicketQRCard';
 import { collection, getFirestore, query, where,  getDoc, doc, onSnapshot, updateDoc} from '@firebase/firestore';
 import { getAuth } from '@firebase/auth';
 import { FadeInFlatList } from '@ja-ka/react-native-fade-in-flatlist';
-import { globalStyles } from '../../assets/styling/globalStyles';
+import { ColorThemeContext } from '../../Navigation/ColorThemeProvider';
 
 
 export default function ClaimedTickets() {
@@ -14,6 +14,7 @@ export default function ClaimedTickets() {
   const q = query(collRef, where('user_id', '==', getAuth().currentUser.uid));
 
   const [tickets, setTickets] = useState(null);
+  const {globalStyles} = useContext(ColorThemeContext)
 
   //Fetch tickets
   useEffect(() =>{
@@ -71,6 +72,7 @@ export default function ClaimedTickets() {
                   ticketNumber={item.id}
                   time={item.time}
                   place={item.place}
+                  globalStyles={globalStyles}
                 />
               )}
               ListFooterComponent={
