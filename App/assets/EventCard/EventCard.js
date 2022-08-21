@@ -34,8 +34,8 @@ const EventCard = props => {
           })}
           activeOpacity={0.8}
         >
-          <ImageBackground source={{uri: image}} style={[globalStyles.eventImage, globalStyles.elevate, {justifyContent: 'flex-end'}]}>
-            <View style={[globalStyles.infoView, globalStyles.borderColor, {borderWidth:1}]}>
+          <ImageBackground source={{uri: image}} style={[globalStyles.backgroundColor, globalStyles.eventImage, globalStyles.elevate, {justifyContent: 'flex-end'}]}>
+            <View style={[globalStyles.backgroundColor, globalStyles.infoView, globalStyles.borderColor, {borderWidth:1}]}>
               <View>
                 <View style={globalStyles.iconTextView}>
                 <Ionicons name="time-outline" size={28} color={globalStyles.iconColor.iconColor} style={{marginRight: 5}}/>

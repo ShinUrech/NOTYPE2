@@ -12,13 +12,16 @@ export default function TicketsScreen() {
   const {user, setUser} = useContext(AuthenticatedUserContext)
   const {globalStyles} = useContext(ColorThemeContext)
 
-  if(user!==null){const db = getFirestore();
+  const db = getFirestore();
   const collRef = collection(db, 'ticketsBought');
-  const q = query(collRef, where('user_id', '==', getAuth().currentUser.uid));
+  
   const [tickets, setTickets] = useState(null);
 
   //Fetch tickets
   useEffect(() =>{
+    if(user !== null){
+    const q = query(collRef, where('user_id', '==', getAuth().currentUser.uid));
+
     const subscriber = onSnapshot(q, (snapshot) => {
       let tickets = [];
       snapshot.docs.forEach((docu) => {
@@ -42,8 +45,9 @@ export default function TicketsScreen() {
       getItems();
     })
     return () => subscriber();
-  }, [])
-  
+  }}, [])
+  if(user!==null){
+
   if (!tickets) {
     return (
       <View style={[globalStyles.backgroundColor, {flex:1, justifyContent: 'center', alignItems: 'center'}]}>
@@ -89,7 +93,7 @@ export default function TicketsScreen() {
   }} else {
     return(
       <View style={[globalStyles.backgroundColor,{flex:1, justifyContent: 'center', alignItems: 'center'}]}>
-        <Text style={globalStyles.bigTitleText}>Create your NOTYPE. to get your tickets!</Text>
+        <Text style={globalStyles.bigTitleText}>Create your NOTYPE. account to get your tickets!</Text>
       </View>
     )
   }

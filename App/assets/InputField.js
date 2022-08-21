@@ -24,7 +24,6 @@ const InputField = ({
       ) : null}
       <TextInput
         {...rest}
-        placeholderTextColor={globalStyles.backgroundColor2.backgroundColor}
         style={[styles.input, inputStyle]}
         
       />
@@ -33,7 +32,7 @@ const InputField = ({
           <Ionicons
             name={rightIcon + '-outline'}
             size={25}
-            color={globalStyles.iconColor.iconColor}
+            color={iconColor}
           />
         </TouchableOpacity>
       ) : null}

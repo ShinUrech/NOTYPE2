@@ -55,7 +55,7 @@ function EventDetailsScreen ({navigation}){
     const [picGalleryOpen, setPicGalleryOpen] = useState(false); 
     const [eventPictures, setEventPictures] = useState([{}])   
 
-    const {user, setUser} = useContext(AuthenticatedUserContext)
+    const {user} = useContext(AuthenticatedUserContext)
 
 
     const q1 = query(collRef1, where('event_id', '==', route.params.id));

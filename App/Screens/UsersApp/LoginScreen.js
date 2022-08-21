@@ -27,6 +27,7 @@ export default function LoginScreen({navigation}) {
   const onLogin = async () => {
     try{
       await signInWithEmailAndPassword(auth, email, password);
+      navigation.navigate('Main', {screen: 'Home'})
     }catch(error){
       setError(true);
     }
@@ -44,7 +45,9 @@ export default function LoginScreen({navigation}) {
           autoFocus={false}
           onChangeText={text => onEmailChange(text)}
           containerStyle={[globalStyles.backgroundColor, {width: '90%', borderColor: 'white', borderWidth:1}]}
+          iconColor={globalStyles.iconColor.iconColor}
           placeholderTextColor={globalStyles.backgroundColor2.backgroundColor}
+          globalStyles={globalStyles}
         />
         <Text style={globalStyles.titleText}>Password</Text>
         <InputField

@@ -19,8 +19,7 @@ import { ColorThemeContext } from './ColorThemeProvider';
 export default function MainTabs(){
 
     const [cartNumber, setCartNumber] = useState(0);
-    const [visible, setVisible] = useState(false);
-    const {user, setUser} = useContext(AuthenticatedUserContext)
+    const {user} = useContext(AuthenticatedUserContext)
     const {globalStyles} = useContext(ColorThemeContext)
 
     const Tab = createBottomTabNavigator();
@@ -29,12 +28,13 @@ export default function MainTabs(){
     const auth = getAuth();
 
     //Fetch cartItems number
-    if(user !== null) {useEffect(() => {
-        const subscriber = onSnapshot(doc(database, 'Users', auth.currentUser.uid), (snapshot) =>{
+    useEffect(() => {
+    
+        if(user !== null) {const subscriber = onSnapshot(doc(database, 'Users', auth.currentUser.uid), (snapshot) =>{
             setCartNumber(snapshot.data().cart);
         })
-        return () => subscriber();
-    }, [])}
+        return () => subscriber();}
+    }, [])
 
     return(
         <SafeAreaProvider>

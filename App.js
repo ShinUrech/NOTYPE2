@@ -1,19 +1,16 @@
 import RootNavigator from "./App/Navigation/RootNavigator";
 import { AuthenticatedUserProvider } from "./App/Navigation/AuthenticatedUserProvider";
 import { ColorThemeContextProvider } from "./App/Navigation/ColorThemeProvider";
-import React, {useEffect, useState, useCallback, useContext} from "react";
+import React, {useEffect, useState, useCallback} from "react";
 import {StripeProvider} from '@stripe/stripe-react-native';
 import NetInfo from '@react-native-community/netinfo';
 import { Text, View, ActivityIndicator } from 'react-native';
 import * as Font from 'expo-font';
-import AppLoading from "expo-app-loading";
 import * as SplashScreen from 'expo-splash-screen';
 
 function App() {
 
-  
-
-SplashScreen.preventAutoHideAsync()
+    SplashScreen.preventAutoHideAsync()
 
     const [connection, setConnection] = useState(true);
     const [fontsLoaded, setFontsLoaded] = useState(false);
@@ -52,7 +49,7 @@ SplashScreen.preventAutoHideAsync()
       if (connection && fontsLoaded) {
         await SplashScreen.hideAsync();
       }
-    }, [connection, fontsLoaded]);
+    }, [connection, fontsLoaded])
   
     if (!(connection && fontsLoaded)) {
       return null;

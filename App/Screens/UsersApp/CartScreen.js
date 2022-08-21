@@ -19,13 +19,12 @@ export default function CartScreen() {
     const [itemNumber, setItemNumber] = useState(0);
     
     const {globalStyles} = useContext(ColorThemeContext)
-    const {user, setUser} = useContext(AuthenticatedUserContext)
+    const {user} = useContext(AuthenticatedUserContext)
    
 
     const navigation = useNavigation();
 
-    //Fetching and updating cart items
-    if(user !== null){useEffect(() => {
+    useEffect(() => {if(user !== null) {
         const collRef = collection(getFirestore(), 'cartItems');
         const q = query(collRef, where('user_id', '==', getAuth().currentUser.uid));
         const subscriber = onSnapshot(q, (snapshot) => {
@@ -45,20 +44,20 @@ export default function CartScreen() {
             getItems();
         })
         return () => subscriber();
-    }, [])
+    }}, [])
 
     //Updating cart SubTotal
-    useEffect(() => {
+    useEffect(() => {if(user !== null){
         const subscriber = onSnapshot(doc(getFirestore(), 'Users', getAuth().currentUser.uid), (snapshot) => {
             setTotal(snapshot.data().total);
             setItemNumber(snapshot.data().cart);
-        })
+        })}
         return () => subscriber();
     });
     //Proceeding to checkout screen
     const initializeCheckout = () => {
-     
-        setLoading(true);  
+     if(user !== null)
+        {setLoading(true);  
 
         //write initial payment data
         const writePaymentDetails = async () => {
@@ -68,12 +67,12 @@ export default function CartScreen() {
                 amount: total*100,
                 currency: 'chf',
             });
-        }
+        }}
         writePaymentDetails();
     }
 
     //Wait for the firebase functions to add additional data before moving forward
-    useEffect(() => {
+    useEffect(() => {if(user !== null){
         const subscriber = onSnapshot(doc(getFirestore(), 'customers', getAuth().currentUser.uid, 'checkout_sessions', getAuth().currentUser.uid), (snapshot) => {
             try{
                 if(typeof snapshot.data().ephemeralKeySecret !== 'undefined' && typeof snapshot.data().paymentIntentClientSecret !== 'undefined' && typeof snapshot.data().customer !== 'undefined'){
@@ -86,7 +85,10 @@ export default function CartScreen() {
             }
         })
         return () => subscriber();
-    }, []);
+    }}, []);
+
+    //Fetching and updating cart items
+    if(user !== null){
 
     if (!ItemData) {
         return(

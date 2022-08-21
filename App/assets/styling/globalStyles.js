@@ -1,6 +1,5 @@
 import { StyleSheet, Platform, StatusBar } from "react-native";
 import { useCallback, useContext} from "react";
-import { ColorThemeContext } from "../../Navigation/ColorThemeProvider";
 
 
 const TitleTextColorLight = '#292929' 
@@ -14,14 +13,15 @@ const backgroundColorDark = 'black'
 
 
 export const styles = (isDarkTheme) => StyleSheet.create({
-
+    backgroundColor: {
+        backgroundColor: (isDarkTheme ? backgroundColorDark : backgroundColorLight)
+    },
+    
     backgroundColor2: {
         backgroundColor: (isDarkTheme ? backgroundColorLight : backgroundColorDark)
     },
 
-    backgroundColor: {
-        backgroundColor: (isDarkTheme ? backgroundColorDark : backgroundColorLight)
-    },
+    
 
     borderColor:{
         borderColor: (isDarkTheme ? backgroundColorLight : backgroundColorDark)
