@@ -10,7 +10,9 @@ import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import AccountSettingsScreen from '../Screens/UsersApp/AccountSettingsScreen';
 import { ColorThemeContext } from './ColorThemeProvider';
-import LoginScreen from '../Screens/UsersApp/LoginScreen';
+import AuthStack from './AuthStack';
+import { AuthenticatedUserProvider } from './AuthenticatedUserProvider';
+
 
 const Stack = createNativeStackNavigator();
 
@@ -23,7 +25,8 @@ const EventStack = () =>{
     const {globalStyles} = useContext(ColorThemeContext)
 
     return(
-        <SafeAreaProvider>
+        
+            <SafeAreaProvider>
             <Stack.Navigator screenOptions={({route}) =>({
                 headerShown: true,
                 headerShadowVisible: true,
@@ -52,9 +55,12 @@ const EventStack = () =>{
                 <Stack.Screen name="Checkout" component={CheckoutScreen} options={{headerShown: false, gestureEnabled: false}}/>
                 <Stack.Screen name='EventDetails' component={EventDetailsScreen} />
                 <Stack.Screen name='AccountSettings' component={AccountSettingsScreen}/>
+                <Stack.Screen name='AuthStack' component={AuthStack} options={{headerShown:false, navigationBarHidden:true}}/>
             </Stack.Navigator>
             <FlashMessage position="top"/>
         </SafeAreaProvider>
+        
+        
         
     )
 }

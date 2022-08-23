@@ -44,7 +44,7 @@ export default function LoginScreen({navigation}) {
           textContentType='emailAddress'
           autoFocus={false}
           onChangeText={text => onEmailChange(text)}
-          containerStyle={[globalStyles.backgroundColor, {width: '90%', borderColor: 'white', borderWidth:1}]}
+          containerStyle={[globalStyles.backgroundColor, globalStyles.borderColor,{width: '90%',  borderWidth:1}]}
           iconColor={globalStyles.iconColor.iconColor}
           placeholderTextColor={globalStyles.backgroundColor2.backgroundColor}
           globalStyles={globalStyles}
@@ -59,7 +59,7 @@ export default function LoginScreen({navigation}) {
           rightIcon={rightIcon}
           onChangeText={text => onPasswordChange(text)}
           handlePasswordVisibility={handlePasswordVisibility}
-          containerStyle={[globalStyles.backgroundColor, {width: '90%', borderColor: 'white', borderWidth:1, marginBottom: 30}]}
+          containerStyle={[globalStyles.backgroundColor, globalStyles.borderColor,{width: '90%', borderWidth:1, marginBottom: 30}]}
           placeholderTextColor={globalStyles.backgroundColor2.backgroundColor}
         />
         {error? 

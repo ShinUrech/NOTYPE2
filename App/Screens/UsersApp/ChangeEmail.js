@@ -34,20 +34,22 @@ export default function ChangeEmail({navigation}) {
             onChangeText={text => {
               setNewEmail(text)
             }}
+            placeholderTextColor={globalStyles.backgroundColor2.backgroundColor}
           />
           
-          <TouchableOpacity style={[globalStyles.eventButton, globalStyles.elevate, {marginVertical: 10}]} onPress={ () => {          
-            try {
+          <TouchableOpacity style={[globalStyles.eventButton, globalStyles.elevate, {marginVertical: 10}]} onPress={
+            () => {          
+            if(auth.currentUser !==null){try {
               updateEmail(auth.currentUser, newEmail)
               } catch(error) {
                 setReauthNeeded(true)
             }
-            navigation.goBack()
+            navigation.goBack()}
           }}
           >
             <Text style={globalStyles.buttonText}>Proceed</Text>
           </TouchableOpacity>
-          <ReAuthModal isVisible={reauthNeeded} onBackdropPress={() => setReauthNeeded(false)}/>
+          <ReAuthModal isVisible={reauthNeeded} onBackdropPress={() => setReauthNeeded(false)} globalStyles={globalStyles}/>
         </View>
       )
 }

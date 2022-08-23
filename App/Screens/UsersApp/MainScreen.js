@@ -9,6 +9,7 @@ import {useIsFocused } from '@react-navigation/native';
 export default function MainScreen() {
 
     const {globalStyles, isDarkMode} = useContext(ColorThemeContext)
+    const [refreshing, setRefreshing] = useState(false)
 
 
     //Database collection reference
@@ -43,6 +44,9 @@ export default function MainScreen() {
                     durationPerItem={500}
                     parallelItems={5}
                     data={events}
+                    onRefresh={() => {}}
+                    refreshing={refreshing}
+                    
                     renderItem={({item}) => 
                         (
                          <EventCard

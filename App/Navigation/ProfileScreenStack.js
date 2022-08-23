@@ -15,7 +15,6 @@ import { Ionicons } from '@expo/vector-icons';
 import {View, Text} from 'react-native'
 import {useNavigation} from '@react-navigation/native'
 import { ColorThemeContext } from './ColorThemeProvider';
-import LoginScreen  from '../Screens/UsersApp/LoginScreen';
 
 export default function ProfileScreenStack() {
 
@@ -77,7 +76,7 @@ export default function ProfileScreenStack() {
             <Stack.Screen name='ClaimedTickets' component={ClaimedTickets}/>
             <Stack.Screen name='OrderHistory' component={OrderHistoryScreen}/>
             <Stack.Screen name='AppSettings' component={AppSettings}/>
-            <Stack.Screen name='Login' component={LoginScreen}/>
+            
         </Stack.Navigator>
     )
 }

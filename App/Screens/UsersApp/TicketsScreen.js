@@ -6,6 +6,7 @@ import { getAuth } from '@firebase/auth';
 import { FadeInFlatList } from '@ja-ka/react-native-fade-in-flatlist';
 import { AuthenticatedUserContext} from '../../Navigation/AuthenticatedUserProvider';
 import { ColorThemeContext } from '../../Navigation/ColorThemeProvider';
+import { auth } from '../../../firebase';
 
 export default function TicketsScreen() {
 
@@ -19,19 +20,18 @@ export default function TicketsScreen() {
 
   //Fetch tickets
   useEffect(() =>{
-    if(user !== null){
+    if(auth.currentUser !== null){
     const q = query(collRef, where('user_id', '==', getAuth().currentUser.uid));
 
-    const subscriber = onSnapshot(q, (snapshot) => {
+ 
+    try {
+      const subscriber = onSnapshot(q, (snapshot) => {
       let tickets = [];
       snapshot.docs.forEach((docu) => {
         if(!docu.data().claimed && (docu.data().time.seconds >= (Date.now()/1000)-86400)){
           
           tickets.push({...docu.data(), id: docu.id});
-        } else if(docu.data().time.seconds <= (Date.now()/1000)-86400){
-          const ref = doc(db, 'ticketsBought', docu.id)
-          updateDoc(ref, {claimed: true})
-        }
+        } 
       })
       const getItems = async () => {
         const ticketDocs = await Promise.all(tickets.map(c => getDoc(doc(getFirestore(), 'tickets', c.ticket_id))));
@@ -44,8 +44,9 @@ export default function TicketsScreen() {
         setTickets(items);      }
       getItems();
     })
-    return () => subscriber();
-  }}, [])
+    return () => subscriber();} catch(error) {
+    }
+  }}, [auth.currentUser])
   if(user!==null){
 
   if (!tickets) {

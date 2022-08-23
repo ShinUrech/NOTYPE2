@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { View, ActivityIndicator } from 'react-native';
-import { AuthenticatedUserContext } from './AuthenticatedUserProvider';
+import { AuthenticatedUserContext, AuthenticatedUserProvider } from './AuthenticatedUserProvider';
 import { auth} from '../../firebase';
 import EventStack from './EventStack';
 
@@ -41,7 +41,8 @@ export default function RootNavigator(){
   
     return (
       <NavigationContainer>
-        <EventStack/>
+          <EventStack/>
+        
       </NavigationContainer>
     );
 }

@@ -31,7 +31,7 @@ export default function ProfileScreen() {
       })
       return unsubscribe;}
       
-    }, [])
+    }, [user])
   
 
   const toggleSupportModal = () => {
@@ -150,15 +150,11 @@ export default function ProfileScreen() {
         <Ionicons name={'chevron-forward-outline'} size={25} color={globalStyles.iconColor.iconColor}/>
       </TouchableOpacity>
 
-      {isStaff ? 
-      <TouchableOpacity style={[globalStyles.eventButton, globalStyles.elevate, {width: '95%', marginBottom: 15}]} onPress={() => navigation.navigate('Staff')}>
-        <Text style={[globalStyles.buttonText, {fontSize: 25}]}>Scanner</Text>
-        <Ionicons name={'chevron-forward-outline'} size={25} color={globalStyles.iconColor.iconColor}/>
-      </TouchableOpacity> : null}
+      
 
       <TouchableOpacity
         style={[globalStyles.eventButton, globalStyles.elevate, {alignSelf: 'center', width:'35%', justifyContent: 'center', marginBottom: 50}]}
-        onPress={() => navigation.navigate('Login')}>
+        onPress={() => navigation.navigate('AuthStack', {screen:'LogIn'})}>
           <Text style={[globalStyles.buttonText, {fontSize: 25, alignSelf: 'center'}]}>Log in</Text>
       </TouchableOpacity>
 

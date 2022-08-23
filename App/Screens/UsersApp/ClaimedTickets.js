@@ -5,6 +5,7 @@ import { collection, getFirestore, query, where,  getDoc, doc, onSnapshot, updat
 import { getAuth } from '@firebase/auth';
 import { FadeInFlatList } from '@ja-ka/react-native-fade-in-flatlist';
 import { ColorThemeContext } from '../../Navigation/ColorThemeProvider';
+import { auth } from '../../../firebase';
 
 
 export default function ClaimedTickets() {
@@ -18,10 +19,11 @@ export default function ClaimedTickets() {
 
   //Fetch tickets
   useEffect(() =>{
-    const subscriber = onSnapshot(q, (snapshot) => {
+    if(auth.currentUser !== null){
+      const subscriber = onSnapshot(q, (snapshot) => {
       let tickets = [];
       snapshot.docs.forEach((docu) => {
-        if(docu.data().claimed){
+        if(docu.data().claimed || docu.data().time.seconds <= ((Date.now()/1000)-86400)){
           tickets.push({...docu.data(), id: docu.id});
           
         }
@@ -39,8 +41,8 @@ export default function ClaimedTickets() {
       getItems();
       
     })
-    return () => subscriber();
-  }, [])
+    return () => subscriber();}
+  }, [auth.currentUser])
 
   if (!tickets) {
     return (

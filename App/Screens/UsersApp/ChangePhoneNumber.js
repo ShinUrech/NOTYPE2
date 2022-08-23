@@ -24,7 +24,9 @@ export default function ChangePhoneNumber() {
             keyboardType='phone-pad'
             onChangeText={text => {
               setNewNumber(text)
-            }}/>
+            }}
+            placeholderTextColor={globalStyles.backgroundColor2.backgroundColor}
+            />
             <TouchableOpacity style={[globalStyles.eventButton, globalStyles.elevate, {marginVertical:10}]} onPress={() => changePhoneNumber(newNumber)}>
                 <Text style={[globalStyles.buttonText, globalStyles.elevate]}>Change your Number</Text>
             </TouchableOpacity>

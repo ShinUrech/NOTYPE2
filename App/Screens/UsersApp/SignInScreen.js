@@ -1,10 +1,7 @@
-import React, { useContext } from "react";
-import { useState, useContext} from "react";
+import React, {useState, useContext } from "react";
 import {KeyboardAvoidingView, View, Keyboard, TouchableWithoutFeedback, Text, TouchableOpacity} from "react-native";
-import { Button } from "react-native-elements";
 import InputField from "../../assets/InputField";
 import { useNavigation } from "@react-navigation/native";
-import DateTimePicker from '@react-native-community/datetimepicker'
 import {ColorThemeContext} from '../../Navigation/ColorThemeProvider'
 
 export default function SignInScreen() {

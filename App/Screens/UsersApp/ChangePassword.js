@@ -33,7 +33,7 @@ export default function ChangePassword({navigation}){
           }}
           containerStyle={[globalStyles.backgroundColor, globalStyles.borderColor, {
           marginBottom: 20,
-          borderWidth:1
+          borderWidth:1,
           }]}
           placeholder='Enter a new password'
           autoCapitalize='none'
@@ -45,15 +45,16 @@ export default function ChangePassword({navigation}){
             setNewPassword(text)
           }}
           handlePasswordVisibility={handlePasswordVisibility}
+          placeholderTextColor={globalStyles.backgroundColor2.backgroundColor}
         />
         <TouchableOpacity style={[globalStyles.eventButton, globalStyles.elevate, {marginVertical: 10}]} onPress={async () => {
-          try{updatePassword(auth.currentUser, newPassword)} catch(error){setReauthNeeded(true)}
+          if(auth.currentUser !== null){try{updatePassword(auth.currentUser, newPassword)} catch(error){setReauthNeeded(true)}
           navigation.goBack()
-        }}
+        }}}
         >
           <Text style={globalStyles.buttonText}>Proceed</Text>
         </TouchableOpacity>
-        <ReAuthModal isVisible={reauthNeeded} onBackdropPress={() => setReauthNeeded(false)}/>
+        <ReAuthModal isVisible={reauthNeeded} onBackdropPress={() => setReauthNeeded(false)} globalStyles={globalStyles}/>
       </View>
     )
 }

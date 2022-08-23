@@ -36,10 +36,10 @@ const TicketCard = props => {
     
     
 
-    if(user !== null){
+    
+        
+        const addItem = async () => {if(user !== null){
         const currUserId = getAuth().currentUser.uid;
-        const addItem = async () => {
-
         setLoading(true);
 
         //Check if the specified ticket is still available
@@ -89,7 +89,7 @@ const TicketCard = props => {
         }
        
         navigation.navigate('Cart');
-    }}
+        }}
 
     return(
         <View style={[globalStyles.cardContainer, globalStyles.backgroundColor, {
@@ -135,10 +135,9 @@ const TicketCard = props => {
                     </View>
                     
                     <Text style={[globalStyles.paragraphText, {paddingHorizontal: '5%', paddingVertical: 20}]}>{description}</Text>
-                    <TouchableOpacity
+                    {user ? <TouchableOpacity
                         onPress={() => addItem()}
                         style={[globalStyles.eventButton, globalStyles.backgroundColor, {borderWidth:0, justifyContent: 'center', alignItems: 'center', width: '100%'}]}
-                        disabled={loading || (user === null)}
                     >
                         {loading? 
                             <ActivityIndicator size='large' color={globalStyles.iconColor.iconColor} /> 
@@ -148,7 +147,10 @@ const TicketCard = props => {
                                 <Ionicons name={'cart-outline'} size={28} color={globalStyles.iconColor.iconColor} />  
                             </View>
                         }
-                    </TouchableOpacity>
+                    </TouchableOpacity>: 
+                    <TouchableOpacity style={[globalStyles.eventButton, globalStyles.backgroundColor, globalStyles.borderColor, {borderWidth:1, justifyContent: 'center', alignItems: 'center', width: '95 %%', marginBottom: 10}]} onPress={() => navigation.navigate('Main', {screen: 'Profile'})}>
+                        <Text style={[globalStyles.buttonText, {fontSize: 22}]}>Log In </Text>
+                    </TouchableOpacity>}
                 </View>
             </Modal>
         </View>

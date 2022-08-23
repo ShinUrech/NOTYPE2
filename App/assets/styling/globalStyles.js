@@ -12,7 +12,8 @@ const backgroundColorLight = 'white'
 const backgroundColorDark = 'black'
 
 
-export const styles = (isDarkTheme) => StyleSheet.create({
+export function styles(isDarkTheme) {
+    return StyleSheet.create({
     backgroundColor: {
         backgroundColor: (isDarkTheme ? backgroundColorDark : backgroundColorLight)
     },
@@ -153,5 +154,8 @@ export const styles = (isDarkTheme) => StyleSheet.create({
         borderWidth: 1,
         borderColor: (isDarkTheme ? backgroundColorLight : backgroundColorDark)
     },
+    inputFieldBackgroundColor:{
+        backgroundColor:(isDarkTheme ? '#222222':'#777777')
+    }
     
-});
+});}

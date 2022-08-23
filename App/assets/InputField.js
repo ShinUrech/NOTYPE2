@@ -10,6 +10,7 @@ const InputField = ({
   containerStyle,
   handlePasswordVisibility,
   placeholderTextColor,
+  placeholderBackgroundColor,
   globalStyles,
   ...rest
 }) => {
@@ -24,11 +25,13 @@ const InputField = ({
       ) : null}
       <TextInput
         {...rest}
-        style={[styles.input, inputStyle]}
+        style={[styles.input ,inputStyle]}
+        placeholderTextColor={placeholderTextColor}
+        
         
       />
       {rightIcon ? (
-        <TouchableOpacity onPress={handlePasswordVisibility}>
+        <TouchableOpacity onPress={handlePasswordVisibility} style={{marginRight:10}}>
           <Ionicons
             name={rightIcon + '-outline'}
             size={25}
@@ -47,7 +50,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingVertical: 15,
-    backgroundColor: 'white',
+    borderBottomWidth:1
   },
   input: {
     width: '70%',

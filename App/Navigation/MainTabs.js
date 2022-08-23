@@ -13,14 +13,18 @@ import { globalStyles } from '../assets/styling/globalStyles';
 import * as WebBrowser from 'expo-web-browser';
 import Modal from 'react-native-modal'
 import ProfileScreenStack from './ProfileScreenStack';
-import { AuthenticatedUserContext } from './AuthenticatedUserProvider';
+import { AuthenticatedUserContext, AuthenticatedUserProvider } from './AuthenticatedUserProvider';
 import { ColorThemeContext } from './ColorThemeProvider';
+import SignInStack from './SignInStack';
+import { auth } from '../../firebase';
 
 export default function MainTabs(){
 
     const [cartNumber, setCartNumber] = useState(0);
-    const {user} = useContext(AuthenticatedUserContext)
+    const {user, setUser} = useContext(AuthenticatedUserContext)
     const {globalStyles} = useContext(ColorThemeContext)
+    
+    const [isLoading, setIsLoading] = useState(true);
 
     const Tab = createBottomTabNavigator();
 
@@ -33,12 +37,16 @@ export default function MainTabs(){
         if(user !== null) {const subscriber = onSnapshot(doc(database, 'Users', auth.currentUser.uid), (snapshot) =>{
             setCartNumber(snapshot.data().cart);
         })
-        return () => subscriber();}
-    }, [])
+        return () => subscriber();} else{
+            setCartNumber(0)
+        }
+    }, [user])
+    
 
     return(
+        
         <SafeAreaProvider>
-        <Tab.Navigator
+       <Tab.Navigator
             screenOptions={({ route }) => ({
                 header: () => {
                     let title;

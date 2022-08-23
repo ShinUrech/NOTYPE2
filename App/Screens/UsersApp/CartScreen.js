@@ -10,6 +10,7 @@ import { FadeInFlatList } from '@ja-ka/react-native-fade-in-flatlist';
 import { globalStyles } from '../../assets/styling/globalStyles';
 import { AuthenticatedUserContext } from '../../Navigation/AuthenticatedUserProvider';
 import { ColorThemeContext } from '../../Navigation/ColorThemeProvider';
+import { auth } from '../../../firebase';
 
 export default function CartScreen() {
 
@@ -24,10 +25,11 @@ export default function CartScreen() {
 
     const navigation = useNavigation();
 
-    useEffect(() => {if(user !== null) {
+    useEffect(() => {
+        if(auth.currentUser !== null) {
         const collRef = collection(getFirestore(), 'cartItems');
         const q = query(collRef, where('user_id', '==', getAuth().currentUser.uid));
-        const subscriber = onSnapshot(q, (snapshot) => {
+       try{ const subscriber = onSnapshot(q, (snapshot) => {
             let cartItems = [];
             snapshot.docs.forEach((document) => {
                 cartItems.push({...document.data(), id: document.id});
@@ -43,53 +45,64 @@ export default function CartScreen() {
             }
             getItems();
         })
-        return () => subscriber();
-    }}, [])
+        return () => subscriber();} catch(error){}
+        
+    }}, [auth.currentUser])
 
     //Updating cart SubTotal
-    useEffect(() => {if(user !== null){
-        const subscriber = onSnapshot(doc(getFirestore(), 'Users', getAuth().currentUser.uid), (snapshot) => {
+    useEffect(() => {
+         if(auth.currentUser !== null) {
+            try{const subscriber = onSnapshot(doc(getFirestore(), 'Users', getAuth().currentUser.uid), (snapshot) => {
             setTotal(snapshot.data().total);
             setItemNumber(snapshot.data().cart);
-        })}
-        return () => subscriber();
-    });
+        })
+        return () => subscriber();}catch(error){}}
+    }, [auth.currentUser]);
     //Proceeding to checkout screen
+    
     const initializeCheckout = () => {
-     if(user !== null)
-        {setLoading(true);  
-
+     
+        if(auth.currentUser !== null){
+            setLoading(true);  
+        
         //write initial payment data
         const writePaymentDetails = async () => {
-            await setDoc(doc(getFirestore(), 'customers', getAuth().currentUser.uid, 'checkout_sessions', getAuth().currentUser.uid),{
+                await setDoc(doc(getFirestore(), 'customers', getAuth().currentUser.uid, 'checkout_sessions', getAuth().currentUser.uid),{
                 client: 'mobile',
                 mode: 'payment',
                 amount: total*100,
                 currency: 'chf',
-            });
-        }}
+            });}
         writePaymentDetails();
     }
 
+    
+    }
+
     //Wait for the firebase functions to add additional data before moving forward
-    useEffect(() => {if(user !== null){
-        const subscriber = onSnapshot(doc(getFirestore(), 'customers', getAuth().currentUser.uid, 'checkout_sessions', getAuth().currentUser.uid), (snapshot) => {
-            try{
-                if(typeof snapshot.data().ephemeralKeySecret !== 'undefined' && typeof snapshot.data().paymentIntentClientSecret !== 'undefined' && typeof snapshot.data().customer !== 'undefined'){
-                    setLoading(false);
+    useEffect(() => {
+        
+        if(auth.currentUser !== null) {   
+            try {const subscriber = onSnapshot(doc(getFirestore(), 'customers', getAuth().currentUser.uid, 'checkout_sessions', getAuth().currentUser.uid), (snapshot) => {
+
+                try{
+                    if(typeof snapshot.data().ephemeralKeySecret !== 'undefined' && typeof snapshot.data().paymentIntentClientSecret !== 'undefined' && typeof snapshot.data().customer !== 'undefined'){
+                       
+                        setLoading(false);
                     navigation.navigate('Checkout');
                     return () => subscriber();
+                }} catch(error){
+                    setLoading(false)
                 }
-            }
-            catch{
-            }
         })
-        return () => subscriber();
-    }}, []);
+        return () => subscriber();}
+        catch(error){}
+    }
+        
+    }, [auth.currentUser]);
 
     //Fetching and updating cart items
     if(user !== null){
-
     if (!ItemData) {
         return(
             <View style={[globalStyles.mainBackgroundView, globalStyles.backgroundColor, {flex: 1}]}>
