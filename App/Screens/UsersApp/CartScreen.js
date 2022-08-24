@@ -47,7 +47,7 @@ export default function CartScreen() {
         })
         return () => subscriber();} catch(error){}
         
-    }}, [auth.currentUser])
+    }})
 
     //Updating cart SubTotal
     useEffect(() => {
@@ -57,7 +57,7 @@ export default function CartScreen() {
             setItemNumber(snapshot.data().cart);
         })
         return () => subscriber();}catch(error){}}
-    }, [auth.currentUser]);
+    });
     //Proceeding to checkout screen
     
     const initializeCheckout = () => {
@@ -82,24 +82,24 @@ export default function CartScreen() {
     //Wait for the firebase functions to add additional data before moving forward
     useEffect(() => {
         
-        if(auth.currentUser !== null) {   
-            try {const subscriber = onSnapshot(doc(getFirestore(), 'customers', getAuth().currentUser.uid, 'checkout_sessions', getAuth().currentUser.uid), (snapshot) => {
-
-                try{
-                    if(typeof snapshot.data().ephemeralKeySecret !== 'undefined' && typeof snapshot.data().paymentIntentClientSecret !== 'undefined' && typeof snapshot.data().customer !== 'undefined'){
-                       
+        if(auth.currentUser !== null ) {   
+            
+                try {
+                    const subscriber = onSnapshot(doc(getFirestore(), 'customers', getAuth().currentUser.uid, 'checkout_sessions', getAuth().currentUser.uid), (snapshot) => {
+                
+                    try {
+                        if(typeof snapshot.data().ephemeralKeySecret !== 'undefined' && typeof snapshot.data().paymentIntentClientSecret !== 'undefined' && typeof snapshot.data().customer !== 'undefined'){
                         setLoading(false);
                     navigation.navigate('Checkout');
-                    return () => subscriber();
-                }} catch(error){
-                    setLoading(false)
-                }
-        })
-        return () => subscriber();}
-        catch(error){}
+                    return () => subscriber();} 
+                    } catch(error){
+                    }
+            })
+            return () => subscriber();} catch(error){
+         }
     }
         
-    }, [auth.currentUser]);
+    });
 
     //Fetching and updating cart items
     if(user !== null){

@@ -3,6 +3,7 @@ import { getAuth, sendEmailVerification, createUserWithEmailAndPassword,updatePr
 import {getFirestore, doc, setDoc, getDoc, updateDoc} from '@firebase/firestore';
 
 
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -30,9 +31,8 @@ export const actionCodeSettings = {
 const app = initializeApp(firebaseConfig);
 
 //Initialize services
-export const auth = getAuth();
-export const database = getFirestore();
-
+export const auth = getAuth(app);
+export const database = getFirestore(app);
 
 //Collection reference
 export const emailConfirmation = async () => {

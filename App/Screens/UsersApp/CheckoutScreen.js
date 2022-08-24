@@ -67,9 +67,8 @@ export default function CheckoutScreen() {
 
             //Delete a checkout_session
             await deleteDoc(doc(getFirestore(), 'customers', getAuth().currentUser.uid, 'checkout_sessions', getAuth().currentUser.uid));
-
             //Go back to the cart screen
-            navigation.navigate('cart');
+            navigation.navigate('Main',{screen: 'Cart'});
         } else {
             //Inform about success
             showMessage({
@@ -77,7 +76,6 @@ export default function CheckoutScreen() {
                 description: "Your order is confirmed!",
                 type: "success",
             });
-
             //Fetch cartItems
             let cartItems = [];
             (await getDocs(query(collection(getFirestore(), 'cartItems'), where('user_id', '==', getAuth().currentUser.uid))))
@@ -85,7 +83,6 @@ export default function CheckoutScreen() {
                     cartItems.push({...doc.data(), id: doc.id});
             })
 
-            
             //add each item as a boughtTicket
             const addDocs = await Promise.all(cartItems.map(c => addDoc(collection(getFirestore(), 'ticketsBought'), {
                 ticket_id: c.ticket_id,
@@ -94,11 +91,9 @@ export default function CheckoutScreen() {
                 claimed: false,
             })));
             addDocs;
-
             //delete each cartItem
             const deleteDocs = await Promise.all(cartItems.map(c => deleteDoc(doc(getFirestore(), 'cartItems', c.id))));
             deleteDocs;
-
             //update User info
             const updateInfo = await updateDoc(doc(getFirestore(), 'Users', getAuth().currentUser.uid), {
                 cart: 0,
@@ -108,9 +103,9 @@ export default function CheckoutScreen() {
 
             //Remove a checkout_session
             await deleteDoc(doc(getFirestore(), 'customers', getAuth().currentUser.uid, 'checkout_sessions', getAuth().currentUser.uid));
-
+            
             //go back and then to the bought tickets section
-            navigation.navigate('Tickets');
+            navigation.navigate('Main',{screen:'Tickets'});
         }
   };
   

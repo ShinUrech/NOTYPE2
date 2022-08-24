@@ -32,19 +32,23 @@ const TicketCard = props => {
         setModalVisible(!modalVisible);
     }
 
-    const collRef = collection(getFirestore(), 'cartItems');
+        const collRef = collection(getFirestore(), 'cartItems');
     
     
 
     
         
-        const addItem = async () => {if(user !== null){
-        const currUserId = getAuth().currentUser.uid;
-        setLoading(true);
+        const addItem = async () => {
+            if(user !== null){
 
-        //Check if the specified ticket is still available
-        const ticketDoc = await getDoc(doc(getFirestore(), 'tickets', ticket_id));
-        const availability = ticketDoc.data().availableNum;
+            const currUserId = getAuth().currentUser.uid;
+            setLoading(true);
+
+            //Check if the specified ticket is still available
+            const ticketDoc = await getDoc(doc(getFirestore(), 'tickets', ticket_id));
+            
+
+            const availability = ticketDoc.data().availableNum;
 
         //If it is..
         if(!availability){
@@ -88,7 +92,7 @@ const TicketCard = props => {
             });
         }
        
-        navigation.navigate('Cart');
+        navigation.navigate('Main', {screen : 'Cart'});
         }}
 
     return(

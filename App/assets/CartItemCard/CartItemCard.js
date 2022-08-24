@@ -39,10 +39,15 @@ const CartItemCard = props => {
         const total = userDoc.data().total;
         const cart = userDoc.data().cart;
 
-        updateDoc(doc(getFirestore(), 'Users', getAuth().currentUser.uid), {
+        if(cart >0 && total >0){updateDoc(doc(getFirestore(), 'Users', getAuth().currentUser.uid), {
             total: total - price,
             cart: cart - 1,
-        })
+        })} else {
+            showMessage({
+                message:'An error had occured with your cart. Please reach out to our team',
+                type: 'danger'
+            })
+        }
 
         //Delete the ticket from cartItems
         deleteDoc(doc(getFirestore(), 'cartItems', itemID));
