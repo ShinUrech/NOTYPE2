@@ -9,15 +9,7 @@ import {getFirestore, doc, setDoc, getDoc, updateDoc} from '@firebase/firestore'
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyBiyZ74eadub3IjmWGg7_fen_2Rsxhwuls",
-  authDomain: "notype-project.firebaseapp.com",
-  projectId: "notype-project",
-  storageBucket: "notype-project.appspot.com",
-  messagingSenderId: "566443304694",
-  appId: "1:566443304694:web:76e20c7e753a8e5fd02ed7",
-  measurementId: "G-XGNJ11N8HJ"
-};
+
 
 export const actionCodeSettings = {
   // URL you want to redirect back to. The domain (www.example.com) for this
